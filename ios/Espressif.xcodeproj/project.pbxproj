@@ -1,0 +1,424 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2E0F908223267FE8001BC43C /* Espressif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F908123267FE8001BC43C /* Espressif.swift */; };
+		2E0F909C23268611001BC43C /* sec1.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F909623268611001BC43C /* sec1.pb.swift */; };
+		2E0F909D23268611001BC43C /* sec0.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F909723268611001BC43C /* sec0.pb.swift */; };
+		2E0F909E23268611001BC43C /* wifi_config.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F909823268611001BC43C /* wifi_config.pb.swift */; };
+		2E0F909F23268611001BC43C /* wifi_constants.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F909923268611001BC43C /* wifi_constants.pb.swift */; };
+		2E0F90A023268611001BC43C /* constants.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F909A23268611001BC43C /* constants.pb.swift */; };
+		2E0F90A123268611001BC43C /* session.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F909B23268611001BC43C /* session.pb.swift */; };
+		2E0F90A82326861A001BC43C /* AESDecryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F90A22326861A001BC43C /* AESDecryptor.m */; };
+		2E0F90A92326861A001BC43C /* DataExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F90A32326861A001BC43C /* DataExtensions.swift */; };
+		2E0F90AA2326861A001BC43C /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F90A42326861A001BC43C /* StringExtensions.swift */; };
+		2E0F90AB2326861A001BC43C /* CryptoAES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F90A52326861A001BC43C /* CryptoAES.swift */; };
+		2E0F90AC2326861A001BC43C /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F90A62326861A001BC43C /* ArrayExtensions.swift */; };
+		2E0F90B023268623001BC43C /* Transport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F90AD23268623001BC43C /* Transport.swift */; };
+		2E0F90B123268623001BC43C /* BLETransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F90AE23268623001BC43C /* BLETransport.swift */; };
+		2E0F90B223268623001BC43C /* SoftAPTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F90AF23268623001BC43C /* SoftAPTransport.swift */; };
+		2E0F90B42326862A001BC43C /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F90B32326862A001BC43C /* Session.swift */; };
+		2E0F90B823268630001BC43C /* Security.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F90B523268630001BC43C /* Security.swift */; };
+		2E0F90B923268630001BC43C /* Security1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F90B623268630001BC43C /* Security1.swift */; };
+		2E0F90BA23268630001BC43C /* Security0.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F90B723268630001BC43C /* Security0.swift */; };
+		2E0F90BD23268662001BC43C /* HexUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F90BC23268662001BC43C /* HexUtils.swift */; };
+		2E0F90D923279837001BC43C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F90D823279837001BC43C /* Config.swift */; };
+		B3E7B58A1CC2AC0600A0062D /* Espressif.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* Espressif.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		58B511D91A9E6C8500147676 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		134814201AA4EA6300B7C361 /* libEspressif.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libEspressif.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2E0F8FF02326535D001BC43C /* Espressif-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Espressif-Bridging-Header.h"; sourceTree = "<group>"; };
+		2E0F908123267FE8001BC43C /* Espressif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Espressif.swift; sourceTree = "<group>"; };
+		2E0F909623268611001BC43C /* sec1.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sec1.pb.swift; sourceTree = "<group>"; };
+		2E0F909723268611001BC43C /* sec0.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sec0.pb.swift; sourceTree = "<group>"; };
+		2E0F909823268611001BC43C /* wifi_config.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = wifi_config.pb.swift; sourceTree = "<group>"; };
+		2E0F909923268611001BC43C /* wifi_constants.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = wifi_constants.pb.swift; sourceTree = "<group>"; };
+		2E0F909A23268611001BC43C /* constants.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = constants.pb.swift; sourceTree = "<group>"; };
+		2E0F909B23268611001BC43C /* session.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = session.pb.swift; sourceTree = "<group>"; };
+		2E0F90A22326861A001BC43C /* AESDecryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AESDecryptor.m; sourceTree = "<group>"; };
+		2E0F90A32326861A001BC43C /* DataExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataExtensions.swift; sourceTree = "<group>"; };
+		2E0F90A42326861A001BC43C /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
+		2E0F90A52326861A001BC43C /* CryptoAES.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CryptoAES.swift; sourceTree = "<group>"; };
+		2E0F90A62326861A001BC43C /* ArrayExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
+		2E0F90A72326861A001BC43C /* AESDecryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AESDecryptor.h; sourceTree = "<group>"; };
+		2E0F90AD23268623001BC43C /* Transport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transport.swift; sourceTree = "<group>"; };
+		2E0F90AE23268623001BC43C /* BLETransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BLETransport.swift; sourceTree = "<group>"; };
+		2E0F90AF23268623001BC43C /* SoftAPTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoftAPTransport.swift; sourceTree = "<group>"; };
+		2E0F90B32326862A001BC43C /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		2E0F90B523268630001BC43C /* Security.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Security.swift; sourceTree = "<group>"; };
+		2E0F90B623268630001BC43C /* Security1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Security1.swift; sourceTree = "<group>"; };
+		2E0F90B723268630001BC43C /* Security0.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Security0.swift; sourceTree = "<group>"; };
+		2E0F90BC23268662001BC43C /* HexUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HexUtils.swift; sourceTree = "<group>"; };
+		2E0F90D823279837001BC43C /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		B3E7B5891CC2AC0600A0062D /* Espressif.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Espressif.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		58B511D81A9E6C8500147676 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		134814211AA4EA7D00B7C361 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				134814201AA4EA6300B7C361 /* libEspressif.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E0F909023268578001BC43C /* proto */ = {
+			isa = PBXGroup;
+			children = (
+				2E0F909A23268611001BC43C /* constants.pb.swift */,
+				2E0F909723268611001BC43C /* sec0.pb.swift */,
+				2E0F909623268611001BC43C /* sec1.pb.swift */,
+				2E0F909B23268611001BC43C /* session.pb.swift */,
+				2E0F909823268611001BC43C /* wifi_config.pb.swift */,
+				2E0F909923268611001BC43C /* wifi_constants.pb.swift */,
+			);
+			path = proto;
+			sourceTree = "<group>";
+		};
+		2E0F909123268588001BC43C /* provision */ = {
+			isa = PBXGroup;
+			children = (
+				2E0F90BB23268637001BC43C /* utils */,
+				2E0F9095232685A1001BC43C /* security */,
+				2E0F90942326859B001BC43C /* session */,
+				2E0F909323268595001BC43C /* transport */,
+				2E0F90922326858F001BC43C /* crypto */,
+			);
+			path = provision;
+			sourceTree = "<group>";
+		};
+		2E0F90922326858F001BC43C /* crypto */ = {
+			isa = PBXGroup;
+			children = (
+				2E0F90A72326861A001BC43C /* AESDecryptor.h */,
+				2E0F90A22326861A001BC43C /* AESDecryptor.m */,
+				2E0F90A62326861A001BC43C /* ArrayExtensions.swift */,
+				2E0F90A52326861A001BC43C /* CryptoAES.swift */,
+				2E0F90A32326861A001BC43C /* DataExtensions.swift */,
+				2E0F90A42326861A001BC43C /* StringExtensions.swift */,
+			);
+			path = crypto;
+			sourceTree = "<group>";
+		};
+		2E0F909323268595001BC43C /* transport */ = {
+			isa = PBXGroup;
+			children = (
+				2E0F90AE23268623001BC43C /* BLETransport.swift */,
+				2E0F90AF23268623001BC43C /* SoftAPTransport.swift */,
+				2E0F90AD23268623001BC43C /* Transport.swift */,
+			);
+			path = transport;
+			sourceTree = "<group>";
+		};
+		2E0F90942326859B001BC43C /* session */ = {
+			isa = PBXGroup;
+			children = (
+				2E0F90B32326862A001BC43C /* Session.swift */,
+			);
+			path = session;
+			sourceTree = "<group>";
+		};
+		2E0F9095232685A1001BC43C /* security */ = {
+			isa = PBXGroup;
+			children = (
+				2E0F90B523268630001BC43C /* Security.swift */,
+				2E0F90B723268630001BC43C /* Security0.swift */,
+				2E0F90B623268630001BC43C /* Security1.swift */,
+			);
+			path = security;
+			sourceTree = "<group>";
+		};
+		2E0F90BB23268637001BC43C /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				2E0F90BC23268662001BC43C /* HexUtils.swift */,
+			);
+			path = utils;
+			sourceTree = "<group>";
+		};
+		58B511D21A9E6C8500147676 = {
+			isa = PBXGroup;
+			children = (
+				2E0F90D823279837001BC43C /* Config.swift */,
+				2E0F909123268588001BC43C /* provision */,
+				2E0F909023268578001BC43C /* proto */,
+				2E0F908123267FE8001BC43C /* Espressif.swift */,
+				B3E7B5891CC2AC0600A0062D /* Espressif.m */,
+				134814211AA4EA7D00B7C361 /* Products */,
+				2E0F8FF02326535D001BC43C /* Espressif-Bridging-Header.h */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		58B511DA1A9E6C8500147676 /* Espressif */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 58B511EF1A9E6C8500147676 /* Build configuration list for PBXNativeTarget "Espressif" */;
+			buildPhases = (
+				58B511D71A9E6C8500147676 /* Sources */,
+				58B511D81A9E6C8500147676 /* Frameworks */,
+				58B511D91A9E6C8500147676 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Espressif;
+			productName = RCTDataManager;
+			productReference = 134814201AA4EA6300B7C361 /* libEspressif.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		58B511D31A9E6C8500147676 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = Facebook;
+				TargetAttributes = {
+					58B511DA1A9E6C8500147676 = {
+						CreatedOnToolsVersion = 6.1.1;
+						LastSwiftMigration = 1030;
+					};
+				};
+			};
+			buildConfigurationList = 58B511D61A9E6C8500147676 /* Build configuration list for PBXProject "Espressif" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				English,
+				en,
+			);
+			mainGroup = 58B511D21A9E6C8500147676;
+			productRefGroup = 58B511D21A9E6C8500147676;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				58B511DA1A9E6C8500147676 /* Espressif */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		58B511D71A9E6C8500147676 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E0F90AC2326861A001BC43C /* ArrayExtensions.swift in Sources */,
+				2E0F90B42326862A001BC43C /* Session.swift in Sources */,
+				2E0F90BD23268662001BC43C /* HexUtils.swift in Sources */,
+				2E0F90B023268623001BC43C /* Transport.swift in Sources */,
+				2E0F90A82326861A001BC43C /* AESDecryptor.m in Sources */,
+				2E0F909E23268611001BC43C /* wifi_config.pb.swift in Sources */,
+				2E0F90B823268630001BC43C /* Security.swift in Sources */,
+				2E0F90A023268611001BC43C /* constants.pb.swift in Sources */,
+				2E0F90A92326861A001BC43C /* DataExtensions.swift in Sources */,
+				2E0F909F23268611001BC43C /* wifi_constants.pb.swift in Sources */,
+				2E0F908223267FE8001BC43C /* Espressif.swift in Sources */,
+				2E0F90BA23268630001BC43C /* Security0.swift in Sources */,
+				2E0F90AA2326861A001BC43C /* StringExtensions.swift in Sources */,
+				B3E7B58A1CC2AC0600A0062D /* Espressif.m in Sources */,
+				2E0F90B223268623001BC43C /* SoftAPTransport.swift in Sources */,
+				2E0F90D923279837001BC43C /* Config.swift in Sources */,
+				2E0F90AB2326861A001BC43C /* CryptoAES.swift in Sources */,
+				2E0F909C23268611001BC43C /* sec1.pb.swift in Sources */,
+				2E0F90B123268623001BC43C /* BLETransport.swift in Sources */,
+				2E0F909D23268611001BC43C /* sec0.pb.swift in Sources */,
+				2E0F90A123268611001BC43C /* session.pb.swift in Sources */,
+				2E0F90B923268630001BC43C /* Security1.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		58B511ED1A9E6C8500147676 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		58B511EE1A9E6C8500147676 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		58B511F01A9E6C8500147676 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../../../React/**",
+					"$(SRCROOT)/../../react-native/React/**",
+				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = Espressif;
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Espressif-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		58B511F11A9E6C8500147676 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../../../React/**",
+					"$(SRCROOT)/../../react-native/React/**",
+				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = Espressif;
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Espressif-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		58B511D61A9E6C8500147676 /* Build configuration list for PBXProject "Espressif" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				58B511ED1A9E6C8500147676 /* Debug */,
+				58B511EE1A9E6C8500147676 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		58B511EF1A9E6C8500147676 /* Build configuration list for PBXNativeTarget "Espressif" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				58B511F01A9E6C8500147676 /* Debug */,
+				58B511F11A9E6C8500147676 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 58B511D31A9E6C8500147676 /* Project object */;
+}
