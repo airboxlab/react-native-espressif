@@ -139,7 +139,7 @@ class Espressif: RCTEventEmitter {
 		
 		newSession.initialize(response: nil) { error in
 			guard error == nil else {
-				print("Error in establishing session \(error.debugDescription)")
+				reject("ERROR", "Error in establishing session \(error.debugDescription)", error)
 				return
 			}
 			
@@ -147,7 +147,7 @@ class Espressif: RCTEventEmitter {
 			
 			provision.configureWifi(ssid: ssid, passphrase: passphrase) { status, error in
 				guard error == nil else {
-					reject("ERROR", "Error in configuring wifi : \(error.debugDescription)", nil)
+					reject("ERROR", "Error in configuring wifi : \(error.debugDescription)", error)
 					return
 				}
 				if status == Espressif_Status.success {
@@ -159,7 +159,7 @@ class Espressif: RCTEventEmitter {
 					}, wifiStatusUpdatedHandler: { wifiState, failReason, error in
 						DispatchQueue.main.async {
 							if error != nil {
-								reject("ERROR", "Error in getting wifi state : \(error.debugDescription)", nil)
+								reject("ERROR", "Error in getting wifi state : \(error.debugDescription)", error)
 							} else if wifiState == Espressif_WifiStationState.connected {
 								resolve("Device connected")
 							} else if wifiState == Espressif_WifiStationState.disconnected {

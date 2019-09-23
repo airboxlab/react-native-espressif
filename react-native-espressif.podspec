@@ -24,7 +24,7 @@ Pod::Spec.new do |s|
   # s.pod_target_xcconfig = { "DEFINES_MODULE" => "YES" }
 
   s.dependency "React"
-  s.dependency 'SwiftProtobuf', '~> 1.5.0'
+  s.dependency 'SwiftProtobuf', '~> 1.6.0'
   s.dependency 'Curve25519', '~> 1.1.0'
   # s.dependency "..."
 end
