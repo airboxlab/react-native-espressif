@@ -27,19 +27,18 @@ const Wrapper = () => {
   };
 };
 
-Wrapper.ConnectionType = {
-  WIFI: "wifi",
-  Bluetooth: "bluetooth"
+export const ESPTransportType = {
+  Bluetooth: "bluetooth",
+  Wifi: "wifi"
 };
 
-Wrapper.Options = {
-  TRANSPORT: "transport_type",
-  SECURITY: "security_type"
-};
-
-Wrapper.Security = {
+export const ESPSecurityType = {
   Sec0: "sec0",
   Sec1: "sec1"
+};
+
+export const ESPDeviceState = {
+  Configured: "CONFIGURED"
 };
 
 export default Wrapper;

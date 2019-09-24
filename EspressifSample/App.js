@@ -16,7 +16,12 @@ import {
   View,
   TouchableOpacity
 } from "react-native";
-import Espressif from "react-native-espressif";
+import Espressif, {
+  ESPDeviceState,
+  ESPSecurityType,
+  ESPTransportType,
+  ESPEventState
+} from "react-native-espressif";
 
 import CredentialsModal from "./CredentialsModal";
 
@@ -38,16 +43,20 @@ export default class App extends Component<{}> {
 
   async componentDidMount() {
     try {
+      // await this.espressif.setConfig({
+      //   securityType:
+      // })
       await this.espressif.setConfig({
-        [Espressif.Options.TRANSPORT]: Espressif.ConnectionType.Bluetooth,
-        [Espressif.Options.SECURITY]: Espressif.Security.Sec1
+        transportType: ESPTransportType.Bluetooth,
+        securityType: ESPSecurityType.Sec1
       });
 
       console.info(this.espressif);
 
       this.espressif.onStateChanged((state, devices) => {
+        console.info({ state, devices });
         devices.forEach(device => {
-          if (device.state === "CONFIGURED") {
+          if (device.state === ESPDeviceState.Configured) {
             this.setState({ selectedDevice: device });
           }
         });

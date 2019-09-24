@@ -19,8 +19,8 @@ class EspressifConfig {
 	
 	
 	enum OptionsType: String {
-		case TransportType = "transport_type"
-		case SecurityType = "security_type"
+		case TransportType = "transportType"
+		case SecurityType = "securityType"
 	}
 	
 	enum TransportType: String {
@@ -44,7 +44,6 @@ class EspressifConfig {
 	
 	func set(_ config: NSDictionary) throws {
 		try config.forEach { (key, value) in
-			print("key \(key), \(value)")
 			guard let keyStr = key as? String else {
 				return
 			}
@@ -65,9 +64,9 @@ class EspressifConfig {
 extension EspressifConfig.OptionsType {
 	init(value: String) throws {
 		switch value {
-		case "transport_type":
+		case "transportType":
 			self = .TransportType
-		case "security_type":
+		case "securityType":
 			self = .SecurityType
 		default:
 			throw EspressifConfig.Errors.optionUndefined(option: value)
