@@ -43,9 +43,6 @@ export default class App extends Component<{}> {
 
   async componentDidMount() {
     try {
-      // await this.espressif.setConfig({
-      //   securityType:
-      // })
       await this.espressif.setConfig({
         transportType: ESPTransportType.Bluetooth,
         securityType: ESPSecurityType.Sec1
