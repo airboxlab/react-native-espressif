@@ -123,8 +123,57 @@ class Espressif: RCTEventEmitter {
 		}
 	}
 	
-	@objc func setCredentials(_ ssid: String, _ passphrase: String){
+	@objc func setCredentials(_ ssid: String, passphrase: String, uuid: String){
+		let peripheral = self.peripherals.first {
+			return $0.identifier.uuidString == uuid
+		}
 		
+		print("setCredentials")
+		
+		if self.transport == nil || self.security == nil {
+			return
+		}
+		
+		let newSession = Session(transport: transport!, security: security!)
+		
+		newSession.initialize(response: nil) { error in
+			guard error == nil else {
+				print("Error in establishing session \(error.debugDescription)")
+				return
+			}
+			
+			let provision = Provision(session: newSession)
+			
+			provision.configureWifi(ssid: ssid, passphrase: passphrase) { status, error in
+				guard error == nil else {
+					print("Error in configuring wifi : \(error.debugDescription)")
+					return
+				}
+				if status == Espressif_Status.success {
+					provision.applyConfigurations(completionHandler: { status, error in
+						guard error == nil else {
+							print("Error in applying configurations : \(error.debugDescription)")
+							return
+						}
+						print("Configurations applied ! \(status)")
+					}, wifiStatusUpdatedHandler: { wifiState, failReason, error in
+						DispatchQueue.main.async {
+							if error != nil {
+								print("Error in getting wifi state : \(error.debugDescription)")
+							} else if wifiState == Espressif_WifiStationState.connected {
+								print("Device has been successfully provisioned!")
+							} else if wifiState == Espressif_WifiStationState.disconnected {
+								print("Please check the device indicators for Provisioning status.")
+							} else {
+								print("Device provisioning failed.\nReason : \(failReason).\nPlease try again")
+							}
+							//						self.navigationController?.present(successVC, animated: true, completion: nil)
+							//						self.provisionButton.isUserInteractionEnabled = true
+						}
+					})
+				}
+			}
+		}
 	}
 	
 	func sendEvent(_ event: EspressifEvent){

@@ -18,13 +18,17 @@ import {
 } from "react-native";
 import Espressif from "react-native-espressif";
 
+import CredentialsModal from "./CredentialsModal";
+
 export default class App extends Component<{}> {
   constructor(props) {
     super(props);
 
     this.state = {
       status: "Initializing",
-      devices: []
+      devices: [],
+      displayCredentialsModal: false,
+      selectedDevice: null
     };
 
     this.espressif = new Espressif();
@@ -43,9 +47,14 @@ export default class App extends Component<{}> {
 
       console.info(this.espressif);
 
-      this.espressif.onStateChanged((state, devices) =>
-        this.setState({ devices })
-      );
+      this.espressif.onStateChanged((state, devices) => {
+        devices.forEach(device => {
+          if (device.state === "CONFIGURED") {
+            this.setState({ selectedDevice: device });
+          }
+        });
+        this.setState({ devices });
+      });
 
       this.setState({ status: "Ready" });
       console.info("Espressif configured");
@@ -62,10 +71,22 @@ export default class App extends Component<{}> {
   }
 
   render() {
-    const { status, devices = [] } = this.state;
+    const {
+      status,
+      devices = [],
+      displayCredentialsModal,
+      selectedDevice
+    } = this.state;
 
     return (
       <View style={styles.container}>
+        <CredentialsModal
+          isVisible={displayCredentialsModal}
+          onSubmit={(ssid, passphrase) => {
+            console.info('onSubmit')
+            this.espressif.setCredentials(ssid, passphrase, selectedDevice.uuid);
+          }}
+        />
         <Text style={styles.welcome}>Espressif example</Text>
         <Text style={styles.instructions}>STATUS: {status}</Text>
 
@@ -75,44 +96,54 @@ export default class App extends Component<{}> {
 
         <View style={styles.list}>
           {(devices || []).map(device => (
-            <TouchableOpacity
-              key={device.uuid}
-              onPress={() => {
-                this.espressif.connectTo(device.uuid);
-              }}
-              style={{
-                shadowColor: "black",
-                shadowOffset: { width: 0, height: 2 },
-                shadowRadius: 2,
-                shadowOpacity: 0.15
-              }}
-            >
-              <View style={styles.item}>
-                <Text
-                  style={{
-                    color: "#333333"
+            <View key={device.uuid}>
+              <TouchableOpacity
+                onPress={() => {
+                  this.espressif.connectTo(device.uuid);
+                }}
+                style={{
+                  shadowColor: "black",
+                  shadowOffset: { width: 0, height: 2 },
+                  shadowRadius: 2,
+                  shadowOpacity: 0.15
+                }}
+              >
+                <View style={styles.item}>
+                  <Text
+                    style={{
+                      color: "#333333"
+                    }}
+                  >
+                    {device.name}
+                  </Text>
+                  <Text
+                    style={{
+                      color: "#666666",
+                      fontSize: 12
+                    }}
+                  >
+                    {device.uuid}
+                  </Text>
+                  <Text
+                    style={{
+                      color: "#666666",
+                      fontSize: 12
+                    }}
+                  >
+                    {device.state}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+              {device.state === "CONFIGURED" ? (
+                <TouchableOpacity
+                  onPress={() => {
+                    this.setState({ displayCredentialsModal: true });
                   }}
                 >
-                  {device.name}
-                </Text>
-                <Text
-                  style={{
-                    color: "#666666",
-                    fontSize: 12
-                  }}
-                >
-                  {device.uuid}
-                </Text>
-                <Text
-                  style={{
-                    color: "#666666",
-                    fontSize: 12
-                  }}
-                >
-                  {device.state}
-                </Text>
-              </View>
-            </TouchableOpacity>
+                  <Text style={styles.link}>Set credentials</Text>
+                </TouchableOpacity>
+              ) : null}
+            </View>
           ))}
         </View>
       </View>
@@ -149,9 +180,14 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 20
   },
+  link: {
+    textAlign: "right",
+    color: "rgba(0,122,255,1)"
+  },
   item: {
     backgroundColor: "white",
     padding: 20,
+    width: 400,
     borderRadius: 8,
     overflow: "hidden"
   }
