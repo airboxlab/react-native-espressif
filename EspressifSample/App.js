@@ -37,8 +37,6 @@ export default class App extends Component<{}> {
   }
 
   async componentDidMount() {
-    console.info(Espressif);
-
     try {
       await this.espressif.setConfig({
         [Espressif.Options.TRANSPORT]: Espressif.ConnectionType.Bluetooth,
@@ -82,9 +80,13 @@ export default class App extends Component<{}> {
       <View style={styles.container}>
         <CredentialsModal
           isVisible={displayCredentialsModal}
-          onSubmit={(ssid, passphrase) => {
-            console.info('onSubmit')
-            this.espressif.setCredentials(ssid, passphrase, selectedDevice.uuid);
+          onSubmit={async (ssid, passphrase) => {
+            await this.espressif.setCredentials(
+              ssid,
+              passphrase,
+              selectedDevice.uuid
+            );
+            this.setState({ displayCredentialsModal: false });
           }}
         />
         <Text style={styles.welcome}>Espressif example</Text>

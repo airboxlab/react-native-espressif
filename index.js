@@ -9,7 +9,7 @@ const Wrapper = () => {
     Espressif.devicesStateSub.remove();
   }
 
-  Espressif.subscription = RNEspressifEvent.addListener(
+  Espressif.devicesStateSub = RNEspressifEvent.addListener(
     "devices-state",
     dataStr => {
       const data = JSON.parse(dataStr);

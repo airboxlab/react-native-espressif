@@ -69,37 +69,39 @@ class Espressif: RCTEventEmitter {
 	}
 	
 	override func supportedEvents() -> [String]! {
-		return ["devices-state"]
+		return ["devices-state", "log"]
 	}
 	
-	@objc func setConfig(_ config: NSDictionary, resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
-		do {
-			try self.config.set(config)
-		} catch let e {
-			reject("Error", e.localizedDescription, e)
-			return
+	@objc func setConfig(_ config: NSDictionary, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
+		DispatchQueue.main.async {
+			do {
+				try self.config.set(config)
+			} catch let e {
+				reject("Error", e.localizedDescription, e)
+				return
+			}
+			
+			if self.config.security == .Sec1 {
+				self.security = Security1(proofOfPossession: PROOF_OF_POSSESSION)
+			} else {
+				self.security = Security0()
+			}
+			
+			if self.config.transport == .Bluetooh {
+				let configUUIDMap: [String: String] = [Provision.PROVISIONING_CONFIG_PATH: BLE_CONFIG_UUID]
+				self.bleTransport = BLETransport(serviceUUIDString: BLE_SERVICE_UUID,
+																				 sessionUUIDString: BLE_SESSION_UUID,
+																				 configUUIDMap: configUUIDMap,
+																				 deviceNamePrefix: BLE_DEVICE_NAME_PREFIX,
+																				 scanTimeout: 1.0)
+				self.bleTransport?.delegate = self
+				self.transport = self.bleTransport
+			} else {
+				self.transport = SoftAPTransport(baseUrl: WIFI_BASEURL)
+			}
+			
+			resolve(nil)
 		}
-		
-		if self.config.security == .Sec1 {
-			self.security = Security1(proofOfPossession: PROOF_OF_POSSESSION)
-		} else {
-			self.security = Security0()
-		}
-		
-		if self.config.transport == .Bluetooh {
-			let configUUIDMap: [String: String] = [Provision.PROVISIONING_CONFIG_PATH: BLE_CONFIG_UUID]
-			bleTransport = BLETransport(serviceUUIDString: BLE_SERVICE_UUID,
-																	sessionUUIDString: BLE_SESSION_UUID,
-																	configUUIDMap: configUUIDMap,
-																	deviceNamePrefix: BLE_DEVICE_NAME_PREFIX,
-																	scanTimeout: 1.0)
-			self.bleTransport?.delegate = self
-			self.transport = bleTransport
-		} else {
-			self.transport = SoftAPTransport(baseUrl: WIFI_BASEURL)
-		}
-		
-		resolve(nil)
 	}
 	
 	@objc func scanDevices() {
@@ -123,14 +125,13 @@ class Espressif: RCTEventEmitter {
 		}
 	}
 	
-	@objc func setCredentials(_ ssid: String, passphrase: String, uuid: String){
+	@objc func setCredentials(_ ssid: String, passphrase: String, uuid: String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock){
 		let peripheral = self.peripherals.first {
 			return $0.identifier.uuidString == uuid
 		}
 		
-		print("setCredentials")
-		
 		if self.transport == nil || self.security == nil {
+			reject("ERROR", "react-native-espressif is not initialized", nil)
 			return
 		}
 		
@@ -146,26 +147,25 @@ class Espressif: RCTEventEmitter {
 			
 			provision.configureWifi(ssid: ssid, passphrase: passphrase) { status, error in
 				guard error == nil else {
-					print("Error in configuring wifi : \(error.debugDescription)")
+					reject("ERROR", "Error in configuring wifi : \(error.debugDescription)", nil)
 					return
 				}
 				if status == Espressif_Status.success {
 					provision.applyConfigurations(completionHandler: { status, error in
 						guard error == nil else {
-							print("Error in applying configurations : \(error.debugDescription)")
+							reject("ERROR", "Error in applying configurations : \(error.debugDescription)", nil)
 							return
 						}
-						print("Configurations applied ! \(status)")
 					}, wifiStatusUpdatedHandler: { wifiState, failReason, error in
 						DispatchQueue.main.async {
 							if error != nil {
-								print("Error in getting wifi state : \(error.debugDescription)")
+								reject("ERROR", "Error in getting wifi state : \(error.debugDescription)", nil)
 							} else if wifiState == Espressif_WifiStationState.connected {
-								print("Device has been successfully provisioned!")
+								resolve("Device connected")
 							} else if wifiState == Espressif_WifiStationState.disconnected {
-								print("Please check the device indicators for Provisioning status.")
+								reject("ERROR","Please check the device indicators for Provisioning status.", nil)
 							} else {
-								print("Device provisioning failed.\nReason : \(failReason).\nPlease try again")
+								reject("ERROR", "Device provisioning failed.\nReason : \(failReason).\nPlease try again", nil)
 							}
 							//						self.navigationController?.present(successVC, animated: true, completion: nil)
 							//						self.provisionButton.isUserInteractionEnabled = true
@@ -192,7 +192,6 @@ class Espressif: RCTEventEmitter {
 
 extension Espressif: BLETransportDelegate {
 	func peripheralsFound(peripherals: [CBPeripheral]) {
-		print("FOUND")
 		self.peripherals = peripherals
 		self.sendEvent(EspressifEvent(state: .devicesFound, message: "FOUND", peripherals: peripherals.map {
 			return EspressifPeripheral(uuid:$0.identifier.uuidString, name: $0.name ?? "Unnamed", state: .notConfigured)
@@ -200,20 +199,16 @@ extension Espressif: BLETransportDelegate {
 	}
 	
 	func peripheralsNotFound(serviceUUID: UUID?) {
-		print("NOT FOUND \(serviceUUID)")
 		self.peripherals = []
 		self.sendEvent(EspressifEvent(state: .devicesNotFound, message: "NOT FOUND", peripherals: []))
 	}
 	
 	func peripheralConfigured(peripheral: CBPeripheral) {
-		print("CONFIGURED")
 		for i in 0..<self.peripherals.count {
 			if self.peripherals[i].identifier.uuidString == peripheral.identifier.uuidString {
 				self.peripherals[i] = peripheral
 			}
 		}
-		
-		
 		
 		self.sendEvent(EspressifEvent(state: .deviceUpdated, message: "Configured", peripherals: peripherals.map {
 			var state : EspressifPeripheral.State = .notConfigured
@@ -226,13 +221,11 @@ extension Espressif: BLETransportDelegate {
 	}
 	
 	func peripheralNotConfigured(peripheral: CBPeripheral) {
-		print("NOTCONFIGURED")
 		self.peripherals = []
 		self.sendEvent(EspressifEvent(state: .deviceUpdated, message: "NotConfigured", peripherals: []))
 	}
 	
 	func peripheralDisconnected(peripheral: CBPeripheral, error: Error?) {
-		print("DISCONNECTED")
 		self.peripherals = []
 		self.sendEvent(EspressifEvent(state: .deviceUpdated, message: "Disconnected", peripherals: []))
 	}

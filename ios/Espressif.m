@@ -6,6 +6,6 @@
 RCT_EXTERN_METHOD(setConfig:(NSDictionary*)config resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 RCT_EXTERN_METHOD(scanDevices)
 RCT_EXTERN_METHOD(writeData)
-RCT_EXTERN_METHOD(setCredentials:(NSString*)ssid passphrase:(NSString*)passphrase uuid:(NSString*)uuid)
+RCT_EXTERN_METHOD(setCredentials:(NSString*)ssid passphrase:(NSString*)passphrase uuid:(NSString*)uuid resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 RCT_EXTERN_METHOD(connectTo:(NSString*)uuid)
 @end

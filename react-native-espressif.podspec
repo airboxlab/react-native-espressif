@@ -19,12 +19,11 @@ Pod::Spec.new do |s|
   s.source_files = "ios/**/*.{h,m,swift}"
   s.requires_arc = true
   s.module_name  = 'RNEspressif'
-  s.swift_version = '4.0'
+  s.swift_version = '5.0'
   s.ios.deployment_target  = '9.0'
-  s.pod_target_xcconfig = { "DEFINES_MODULE" => "YES" }
+  # s.pod_target_xcconfig = { "DEFINES_MODULE" => "YES" }
 
   s.dependency "React"
-  s.dependency 'AFNetworking', '~> 3.0'
   s.dependency 'SwiftProtobuf', '~> 1.5.0'
   s.dependency 'Curve25519', '~> 1.1.0'
   # s.dependency "..."

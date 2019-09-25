@@ -62,7 +62,8 @@ class BLETransport: NSObject, Transport {
         bleSessionCharacteristicUUID = sessionUUIDString
         self.configUUIDMap = configUUIDMap
         super.init()
-        centralManager = CBCentralManager(delegate: self, queue: nil)
+			
+			centralManager = CBCentralManager(delegate: self, queue: nil)
     }
 
     /// BLE implementation of Transport protocol
@@ -189,16 +190,16 @@ extension BLETransport: CBCentralManagerDelegate {
         case .poweredOn:
             print("Bluetooth state on")
             isBLEEnabled = true
-            _ = Timer.scheduledTimer(timeInterval: scanTimeout,
-                                     target: self,
-                                     selector: #selector(stopScan(timer:)),
-                                     userInfo: nil,
-                                     repeats: true)
-            var uuids: [CBUUID]?
-            if let serviceUUID = self.serviceUUID {
-                uuids = [CBUUID(string: serviceUUID.uuidString)]
-            }
-            centralManager.scanForPeripherals(withServices: uuids)
+//            _ = Timer.scheduledTimer(timeInterval: scanTimeout,
+//                                     target: self,
+//                                     selector: #selector(stopScan(timer:)),
+//                                     userInfo: nil,
+//                                     repeats: true)
+//            var uuids: [CBUUID]?
+//            if let serviceUUID = self.serviceUUID {
+//                uuids = [CBUUID(string: serviceUUID.uuidString)]
+//            }
+//            centralManager.scanForPeripherals(withServices: uuids)
         @unknown default: break
         }
     }

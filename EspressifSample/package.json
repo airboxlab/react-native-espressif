@@ -8,8 +8,8 @@
     "postinstall": "node ../scripts/examples_postinstall.js"
   },
   "dependencies": {
-    "react": "16.8.3",
-    "react-native": "0.59",
+    "react": "16.8.6",
+    "react-native": "0.60.5",
     "react-native-espressif": "file:../"
   },
   "devDependencies": {
