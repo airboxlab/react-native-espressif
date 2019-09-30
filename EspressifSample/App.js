@@ -8,195 +8,56 @@
  * https://github.com/facebook/react-native
  */
 
-import React, { Component } from "react";
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity
-} from "react-native";
-import Espressif, {
-  ESPDeviceState,
-  ESPSecurityType,
-  ESPTransportType,
-  ESPEventState
-} from "react-native-espressif";
+import React from "react";
+import { SafeAreaView, Image, View } from "react-native";
+import { createAppContainer } from "react-navigation";
+import { createDrawerNavigator, DrawerActions } from "react-navigation-drawer";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
-import CredentialsModal from "./CredentialsModal";
+import Home from "./containers/Home";
+import Settings from "./containers/Settings";
 
-export default class App extends Component<{}> {
+const AppNavigator = createDrawerNavigator({
+  Home,
+  Settings
+});
+
+const AppContainer = createAppContainer(AppNavigator);
+
+export default class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      status: "Initializing",
-      devices: [],
-      displayCredentialsModal: false,
-      selectedDevice: null
-    };
+    this.container = React.createRef();
 
-    this.espressif = new Espressif();
-
-    this.scanDevices = this.scanDevices.bind(this);
+    this.toggleDrawer = this.toggleDrawer.bind(this);
   }
 
-  async componentDidMount() {
-    try {
-      await this.espressif.setConfig({
-        transportType: ESPTransportType.Bluetooth,
-        securityType: ESPSecurityType.Sec1
-      });
-
-      console.info(this.espressif);
-
-      this.espressif.onStateChanged((state, devices) => {
-        console.info({ state, devices });
-        devices.forEach(device => {
-          if (device.state === ESPDeviceState.Configured) {
-            this.setState({ selectedDevice: device });
-          }
-        });
-        this.setState({ devices });
-      });
-
-      this.setState({ status: "Ready" });
-      console.info("Espressif configured");
-    } catch (e) {
-      console.error(e);
-      this.setState({ status: "Error" });
-    }
-
-    // Espressif.scanDevices();
-  }
-
-  scanDevices() {
-    this.espressif.scanDevices();
+  toggleDrawer() {
+    this.container.current.dispatch(DrawerActions.toggleDrawer());
   }
 
   render() {
-    const {
-      status,
-      devices = [],
-      displayCredentialsModal,
-      selectedDevice
-    } = this.state;
-
     return (
-      <View style={styles.container}>
-        <CredentialsModal
-          isVisible={displayCredentialsModal}
-          onSubmit={async (ssid, passphrase) => {
-            await this.espressif.setCredentials(
-              ssid,
-              passphrase,
-              selectedDevice.uuid
-            );
-            this.setState({ displayCredentialsModal: false });
+      <SafeAreaView style={{ flex: 1, backgroundColor: "#F5FCFF" }}>
+        <View
+          style={{
+            position: "absolute",
+            top: 25,
+            left: 10,
+            zIndex: 1
           }}
-        />
-        <Text style={styles.welcome}>Espressif example</Text>
-        <Text style={styles.instructions}>STATUS: {status}</Text>
-
-        <TouchableOpacity onPress={this.scanDevices}>
-          <Text style={styles.scanDevices}>Scan devices</Text>
-        </TouchableOpacity>
-
-        <View style={styles.list}>
-          {(devices || []).map(device => (
-            <View key={device.uuid}>
-              <TouchableOpacity
-                onPress={() => {
-                  this.espressif.connectTo(device.uuid);
-                }}
-                style={{
-                  shadowColor: "black",
-                  shadowOffset: { width: 0, height: 2 },
-                  shadowRadius: 2,
-                  shadowOpacity: 0.15
-                }}
-              >
-                <View style={styles.item}>
-                  <Text
-                    style={{
-                      color: "#333333"
-                    }}
-                  >
-                    {device.name}
-                  </Text>
-                  <Text
-                    style={{
-                      color: "#666666",
-                      fontSize: 12
-                    }}
-                  >
-                    {device.uuid}
-                  </Text>
-                  <Text
-                    style={{
-                      color: "#666666",
-                      fontSize: 12
-                    }}
-                  >
-                    {device.state}
-                  </Text>
-                </View>
-              </TouchableOpacity>
-              {device.state === "CONFIGURED" ? (
-                <TouchableOpacity
-                  onPress={() => {
-                    this.setState({ displayCredentialsModal: true });
-                  }}
-                >
-                  <Text style={styles.link}>Set credentials</Text>
-                </TouchableOpacity>
-              ) : null}
-            </View>
-          ))}
+        >
+          <TouchableOpacity onPress={this.toggleDrawer}>
+            <Image
+              resizeMode="contain"
+              style={{ width: 30 }}
+              source={require("./assets/menu.png")}
+            />
+          </TouchableOpacity>
         </View>
-      </View>
+        <AppContainer ref={this.container} style={{ flex: 1 }} />
+      </SafeAreaView>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#F5FCFF"
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: "center",
-    margin: 10
-  },
-  instructions: {
-    textAlign: "center",
-    color: "#333333",
-    marginBottom: 5
-  },
-  scanDevices: {
-    backgroundColor: "#00A86B",
-    fontSize: 18,
-    fontWeight: "100",
-    padding: 20,
-    borderRadius: 8,
-    overflow: "hidden"
-  },
-  list: {
-    flex: 1,
-    marginTop: 20
-  },
-  link: {
-    textAlign: "right",
-    color: "rgba(0,122,255,1)"
-  },
-  item: {
-    backgroundColor: "white",
-    padding: 20,
-    width: 400,
-    borderRadius: 8,
-    overflow: "hidden"
-  }
-});

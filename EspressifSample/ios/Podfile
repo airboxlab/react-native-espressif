@@ -49,4 +49,10 @@ platform :ios, '10.0'
 		# ]
 
 		pod 'react-native-espressif', :path => '../../react-native-espressif.podspec'
+   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+
+   pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
+
+   pod 'RNScreens', :path => '../node_modules/react-native-screens'
+
 	end
