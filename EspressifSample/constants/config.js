@@ -1,8 +1,15 @@
 import { ESPSecurityType, ESPTransportType } from "react-native-espressif";
 
-const Config = {
-  transportType: ESPTransportType.Bluetooth,
-  securityType: ESPSecurityType.Sec1
-};
+var transportType =ESPTransportType.Bluetooth;
+var securityType = ESPSecurityType.Sec1;
 
-export default Config;
+
+export default {
+  get: () => ({transportType, securityType}),
+  setTransportType: transport => {
+    transportType = transport;
+  },
+  setSecurityType: security => {
+    securityType = security;
+  }
+};

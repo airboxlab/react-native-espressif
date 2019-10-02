@@ -35,19 +35,31 @@ export default class App extends Component {
     this.espressif = new Espressif();
 
     this.scanDevices = this.scanDevices.bind(this);
+    this.load = this.load.bind(this);
   }
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.props.navigation.addListener("willFocus", this.load);
+  }
+
+  async load() {
     try {
-      await this.espressif.setConfig(ESPConfig);
+      await this.espressif.setConfig(ESPConfig.get());
 
       this.loggerRef.addLine(
-        `RNEspressif is starting width ${JSON.stringify(ESPConfig, null, 2)}`
+        `RNEspressif is starting width ${JSON.stringify(
+          ESPConfig.get(),
+          null,
+          2
+        )}`
       );
 
       this.espressif.onStateChanged((state, devices) => {
         console.info({ state, devices });
         devices.forEach(device => {
+          this.loggerRef.addLine(
+            `[${device.uuid}] ${device.name} ${device.state}`
+          );
           if (device.state === ESPDeviceState.Configured) {
             this.setState({ selectedDevice: device });
           }
@@ -62,12 +74,11 @@ export default class App extends Component {
       console.error(e);
       this.setState({ status: "Error" });
     }
-
-    // Espressif.scanDevices();
   }
 
   scanDevices() {
     this.espressif.scanDevices();
+    this.loggerRef.addLine("Start scanning devices");
   }
 
   render() {
@@ -82,13 +93,21 @@ export default class App extends Component {
       <View style={styles.container}>
         <CredentialsModal
           isVisible={displayCredentialsModal}
-          onSubmit={async (ssid, passphrase) => {
-            await this.espressif.setCredentials(
-              ssid,
-              passphrase,
-              selectedDevice.uuid
-            );
+          onCancel={() => {
             this.setState({ displayCredentialsModal: false });
+          }}
+          onSubmit={async (ssid, passphrase) => {
+            try {
+              await this.espressif.setCredentials(
+                ssid,
+                passphrase,
+                selectedDevice.uuid
+              );
+              this.setState({ displayCredentialsModal: false });
+              this.loggerRef.addLine("Credentials successfully changed");
+            } catch (e) {
+              this.loggerRef.addLine(e);
+            }
           }}
         />
         <Text style={styles.welcome}>Espressif example</Text>

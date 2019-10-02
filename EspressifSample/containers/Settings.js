@@ -16,7 +16,21 @@ const styles = StyleSheet.create({
 });
 
 export default class Settings extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  componentDidMount() {
+    const config = Config.get();
+    this.setState({
+      ...config
+    });
+  }
+
   render() {
+    const { transportType, securityType } = this.state;
+
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Settings</Text>
@@ -34,8 +48,11 @@ export default class Settings extends React.Component {
           <View>
             <Text>Transport type</Text>
             <Picker
-              selectedValue={Config.transportType}
-              onValueChange={itemValue => (Config.transportType = itemValue)}
+              selectedValue={transportType}
+              onValueChange={transportType => {
+                this.setState({ transportType });
+                Config.setTransportType(transportType);
+              }}
             >
               <Picker.Item label="Wifi" value={ESPTransportType.Wifi} />
               <Picker.Item
@@ -47,8 +64,11 @@ export default class Settings extends React.Component {
           <View>
             <Text>Security type</Text>
             <Picker
-              selectedValue={Config.securityType}
-              onValueChange={itemValue => (Config.securityType = itemValue)}
+              selectedValue={securityType}
+              onValueChange={securityType => {
+                this.setState({ securityType });
+                Config.setSecurityType(securityType);
+              }}
             >
               <Picker.Item label="Sec0" value={ESPSecurityType.Sec0} />
               <Picker.Item label="Sec1" value={ESPSecurityType.Sec1} />

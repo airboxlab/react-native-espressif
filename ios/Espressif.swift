@@ -96,6 +96,10 @@ class Espressif: RCTEventEmitter {
 																				 scanTimeout: 1.0)
 				self.bleTransport?.delegate = self
 				self.transport = self.bleTransport
+				self.bleTransport?.currentRequestCompletionHandler = { (data, error) in
+					print("CurrentRequest")
+					self.sendEvent(withName: "log", body: (data: data, error: error))
+				}
 			} else {
 				self.transport = SoftAPTransport(baseUrl: WIFI_BASEURL)
 			}
@@ -167,8 +171,6 @@ class Espressif: RCTEventEmitter {
 							} else {
 								reject("ERROR", "Device provisioning failed.\nReason : \(failReason).\nPlease try again", nil)
 							}
-							//						self.navigationController?.present(successVC, animated: true, completion: nil)
-							//						self.provisionButton.isUserInteractionEnabled = true
 						}
 					})
 				}

@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2D2A28121D9B038B00D4039D"
+               BlueprintIdentifier = "83CBBA2D1A601D0E00E9B192"
                BuildableName = "libReact.a"
-               BlueprintName = "React-tvOS"
+               BlueprintName = "React"
                ReferencedContainer = "container:../node_modules/react-native/React/React.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,10 +28,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-               BuildableName = "EspressifSample-tvOS.app"
-               BlueprintName = "EspressifSample-tvOS"
-               ReferencedContainer = "container:EspressifSample.xcodeproj">
+               BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
+               BuildableName = "ReactNativeEspressif.app"
+               BlueprintName = "ReactNativeEspressif"
+               ReferencedContainer = "container:ReactNativeEspressif.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -42,10 +42,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "EspressifSample-tvOSTests.xctest"
-               BlueprintName = "EspressifSample-tvOSTests"
-               ReferencedContainer = "container:EspressifSample.xcodeproj">
+               BlueprintIdentifier = "00E356ED1AD99517003FC87E"
+               BuildableName = "EspressifSampleTests.xctest"
+               BlueprintName = "EspressifSampleTests"
+               ReferencedContainer = "container:ReactNativeEspressif.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -55,29 +55,27 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
+            BuildableName = "ReactNativeEspressif.app"
+            BlueprintName = "ReactNativeEspressif"
+            ReferencedContainer = "container:ReactNativeEspressif.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <Testables>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "EspressifSample-tvOSTests.xctest"
-               BlueprintName = "EspressifSample-tvOSTests"
-               ReferencedContainer = "container:EspressifSample.xcodeproj">
+               BlueprintIdentifier = "00E356ED1AD99517003FC87E"
+               BuildableName = "EspressifSampleTests.xctest"
+               BlueprintName = "EspressifSampleTests"
+               ReferencedContainer = "container:ReactNativeEspressif.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "EspressifSample-tvOS.app"
-            BlueprintName = "EspressifSample-tvOS"
-            ReferencedContainer = "container:EspressifSample.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -93,13 +91,45 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "EspressifSample-tvOS.app"
-            BlueprintName = "EspressifSample-tvOS"
-            ReferencedContainer = "container:EspressifSample.xcodeproj">
+            BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
+            BuildableName = "ReactNativeEspressif.app"
+            BlueprintName = "ReactNativeEspressif"
+            ReferencedContainer = "container:ReactNativeEspressif.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "OS_ACTIVITY_MODE"
+            value = "disable"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
       <AdditionalOptions>
+         <AdditionalOption
+            key = "MallocStackLogging"
+            value = ""
+            isEnabled = "YES">
+         </AdditionalOption>
+         <AdditionalOption
+            key = "DYLD_INSERT_LIBRARIES"
+            value = "/usr/lib/libgmalloc.dylib"
+            isEnabled = "YES">
+         </AdditionalOption>
+         <AdditionalOption
+            key = "NSZombieEnabled"
+            value = "YES"
+            isEnabled = "YES">
+         </AdditionalOption>
+         <AdditionalOption
+            key = "MallocGuardEdges"
+            value = ""
+            isEnabled = "YES">
+         </AdditionalOption>
+         <AdditionalOption
+            key = "MallocScribble"
+            value = ""
+            isEnabled = "YES">
+         </AdditionalOption>
       </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
@@ -112,10 +142,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "EspressifSample-tvOS.app"
-            BlueprintName = "EspressifSample-tvOS"
-            ReferencedContainer = "container:EspressifSample.xcodeproj">
+            BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
+            BuildableName = "ReactNativeEspressif.app"
+            BlueprintName = "ReactNativeEspressif"
+            ReferencedContainer = "container:ReactNativeEspressif.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

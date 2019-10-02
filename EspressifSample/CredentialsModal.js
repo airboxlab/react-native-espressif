@@ -51,7 +51,7 @@ export default class CredentialsModal extends React.Component {
 
   render() {
     const { ssid, passphrase } = this.state;
-    const { isVisible = false, onSubmit } = this.props;
+    const { isVisible = false, onSubmit, onCancel } = this.props;
 
     return (
       <Modal animationType="slide" transparent visible={isVisible}>
@@ -74,13 +74,25 @@ export default class CredentialsModal extends React.Component {
               }}
             />
 
-            <TouchableOpacity
-              onPress={async () => {
-                await onSubmit(ssid, passphrase);
-              }}
-            >
-              <Text style={styles.button}>Apply</Text>
-            </TouchableOpacity>
+            <View style={{ flexDirection: "row" }}>
+              <TouchableOpacity
+                onPress={async () => {
+                  onCancel();
+                }}
+              >
+                <Text style={{ ...styles.button, backgroundColor: "#00A86B" }}>
+                  Cancel
+                </Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={async () => {
+                  await onSubmit(ssid, passphrase);
+                }}
+              >
+                <Text style={styles.button}>Apply</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </Modal>

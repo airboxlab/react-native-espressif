@@ -10,7 +10,8 @@ const styles = StyleSheet.create({
     padding: 10
   },
   text: {
-    color: "white"
+    color: "white",
+    paddingVertical: 10
   }
 });
 
@@ -40,7 +41,7 @@ export default class Logger extends React.Component {
         <ScrollView style={{ flex: 1 }}>
           {texts.map((text, index) => (
             <Text key={index} style={styles.text}>
-              {text}
+              - {text}
             </Text>
           ))}
         </ScrollView>

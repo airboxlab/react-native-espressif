@@ -21,7 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -38,6 +38,8 @@
 		</dict>
 	</dict>
 	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Used to detect your device</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>Used to detect your device</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
