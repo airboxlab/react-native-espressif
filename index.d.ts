@@ -15,6 +15,9 @@ export enum ESPDeviceState {
 interface Config {
   transportType: ESPTransportType;
   securityType: ESPSecurityType;
+  bleDeviceNamePrefix: string;
+  wifiBaseUrl: string;
+  wifiNetworkNamePrefix: string;
 }
 
 interface Device {

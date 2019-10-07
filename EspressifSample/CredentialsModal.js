@@ -67,6 +67,7 @@ export default class CredentialsModal extends React.Component {
             />
             <Text style={styles.label}>Passphrase</Text>
             <TextInput
+              secureTextEntry
               style={styles.input}
               value={passphrase}
               onChangeText={passphrase => {

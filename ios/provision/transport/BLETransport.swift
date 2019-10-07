@@ -155,7 +155,7 @@ class BLETransport: NSObject, Transport {
             if let serviceUUID = self.serviceUUID {
                 uuids = [CBUUID(string: serviceUUID.uuidString)]
             }
-            centralManager.scanForPeripherals(withServices: uuids)
+            centralManager.scanForPeripherals(withServices: nil)
         }
     }
 
@@ -208,7 +208,9 @@ extension BLETransport: CBCentralManagerDelegate {
                         didDiscover peripheral: CBPeripheral,
                         advertisementData data: [String: Any],
                         rssi _: NSNumber) {
+			if peripheral.name?.contains(deviceNamePrefix ?? "") == true {
         espressifPeripherals.append(peripheral)
+			}
     }
 
     func centralManager(_: CBCentralManager, didConnect _: CBPeripheral) {
@@ -216,7 +218,7 @@ extension BLETransport: CBCentralManagerDelegate {
         if let serviceUUID = self.serviceUUID {
             uuids = [CBUUID(string: serviceUUID.uuidString)]
         }
-        currentPeripheral?.discoverServices(uuids)
+        currentPeripheral?.discoverServices(nil)
     }
 
     func centralManager(_: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {

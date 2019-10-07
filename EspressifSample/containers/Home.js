@@ -12,6 +12,7 @@ import Espressif, {
   ESPTransportType,
   ESPEventState
 } from "react-native-espressif";
+import { ScrollView } from "react-native-gesture-handler";
 
 import Logger from "../components/Logger";
 
@@ -47,7 +48,7 @@ export default class App extends Component {
       await this.espressif.setConfig(ESPConfig.get());
 
       this.loggerRef.addLine(
-        `RNEspressif is starting width ${JSON.stringify(
+        `RNEspressif is starting with ${JSON.stringify(
           ESPConfig.get(),
           null,
           2
@@ -56,6 +57,8 @@ export default class App extends Component {
 
       this.espressif.onStateChanged((state, devices) => {
         console.info({ state, devices });
+
+        this.loggerRef.addLine(`STATE [${state}]`);
         devices.forEach(device => {
           this.loggerRef.addLine(
             `[${device.uuid}] ${device.name} ${device.state}`
@@ -119,7 +122,7 @@ export default class App extends Component {
           </TouchableOpacity>
         </View>
 
-        <View style={styles.list}>
+        <ScrollView style={styles.list}>
           {(devices || []).map(device => (
             <View key={device.uuid}>
               <TouchableOpacity
@@ -170,7 +173,7 @@ export default class App extends Component {
               ) : null}
             </View>
           ))}
-        </View>
+        </ScrollView>
         <Logger onRef={ref => (this.loggerRef = ref)} />
       </View>
     );

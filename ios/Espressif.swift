@@ -93,7 +93,7 @@ class Espressif: RCTEventEmitter {
 																				 sessionUUIDString: BLE_SESSION_UUID,
 																				 configUUIDMap: configUUIDMap,
 																				 deviceNamePrefix: BLE_DEVICE_NAME_PREFIX,
-																				 scanTimeout: 1.0)
+																				 scanTimeout: 5.0)
 				self.bleTransport?.delegate = self
 				self.transport = self.bleTransport
 				self.bleTransport?.currentRequestCompletionHandler = { (data, error) in
