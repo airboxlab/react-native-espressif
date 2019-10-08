@@ -38,7 +38,13 @@ export default class Logger extends React.Component {
     const { texts } = this.state;
     return (
       <View style={styles.container}>
-        <ScrollView style={{ flex: 1 }}>
+        <ScrollView
+          style={{ flex: 1 }}
+          ref={ref => (this.scrollView = ref)}
+          onContentSizeChange={(contentWidth, contentHeight) => {
+            this.scrollView.scrollToEnd({ animated: true });
+          }}
+        >
           {texts.map((text, index) => (
             <Text key={index} style={styles.text}>
               - {text}

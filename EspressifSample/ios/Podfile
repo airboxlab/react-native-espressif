@@ -1,6 +1,6 @@
 platform :ios, '10.0'
 
-	target 'EspressifSample' do
+	target 'ReactNativeEspressif' do
 #		use_frameworks!
     # use_modular_headers!
 		rn_path = '../node_modules/react-native'

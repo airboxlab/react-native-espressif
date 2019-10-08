@@ -20,6 +20,8 @@ import CredentialsModal from "../CredentialsModal";
 
 import ESPConfig from "../constants/config";
 
+import Device from "../components/Device";
+
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -64,6 +66,16 @@ export default class App extends Component {
             `[${device.uuid}] ${device.name} ${device.state}`
           );
           if (device.state === ESPDeviceState.Configured) {
+            this.loggerRef.addLine(`Start session to ${device.uuid}`);
+            this.espressif.startSession(device.uuid).then(
+              () => {
+                this.loggerRef.addLine("Session established");
+              },
+              err => {
+                console.error(err);
+              }
+            );
+          } else if (device.state === "SESSION_ESTABLISHED") {
             this.setState({ selectedDevice: device });
           }
         });
@@ -101,14 +113,17 @@ export default class App extends Component {
           }}
           onSubmit={async (ssid, passphrase) => {
             try {
-              await this.espressif.setCredentials(
+              const data = await this.espressif.setCredentials(
                 ssid,
                 passphrase,
                 selectedDevice.uuid
               );
               this.setState({ displayCredentialsModal: false });
-              this.loggerRef.addLine("Credentials successfully changed");
+              this.loggerRef.addLine(
+                `Credentials successfully changed ${JSON.stringify(JSON.parse(data), null, 2)}`
+              );
             } catch (e) {
+              console.info(e);
               this.loggerRef.addLine(e);
             }
           }}
@@ -124,54 +139,30 @@ export default class App extends Component {
 
         <ScrollView style={styles.list}>
           {(devices || []).map(device => (
-            <View key={device.uuid}>
-              <TouchableOpacity
-                onPress={() => {
-                  this.espressif.connectTo(device.uuid);
-                }}
-                style={{
-                  shadowColor: "black",
-                  shadowOffset: { width: 0, height: 2 },
-                  shadowRadius: 2,
-                  shadowOpacity: 0.15
-                }}
-              >
-                <View style={styles.item}>
-                  <Text
-                    style={{
-                      color: "#333333"
-                    }}
-                  >
-                    {device.name}
-                  </Text>
-                  <Text
-                    style={{
-                      color: "#666666",
-                      fontSize: 12
-                    }}
-                  >
-                    {device.uuid}
-                  </Text>
-                  <Text
-                    style={{
-                      color: "#666666",
-                      fontSize: 12
-                    }}
-                  >
-                    {device.state}
-                  </Text>
-                </View>
-              </TouchableOpacity>
-              {device.state === "CONFIGURED" ? (
-                <TouchableOpacity
-                  onPress={() => {
-                    this.setState({ displayCredentialsModal: true });
-                  }}
-                >
-                  <Text style={styles.link}>Set credentials</Text>
-                </TouchableOpacity>
-              ) : null}
-            </View>
+            <Device
+              key={device.uuid}
+              device={device}
+              connectTo={async () => {
+                this.loggerRef.addLine(`Connect to ${device.uuid}`);
+                this.espressif.connectTo(device.uuid);
+              }}
+              setCredentials={() => {
+                this.setState({ displayCredentialsModal: true });
+              }}
+              getDeviceInfo={async () => {
+                try {
+                  this.loggerRef.addLine("GET DEVICE INFO");
+                  const data = await this.espressif.getDeviceInfo();
+                  this.loggerRef.addLine(
+                    `Get device info ${JSON.stringify(JSON.parse(data), null, 2)}`
+                  );
+                } catch (e) {
+                  console.error(e);
+                  this.loggerRef.addLine(`ERROR ${JSON.stringify(e, null, 2)}`);
+                }
+              }}
+              scanWifi={async () => {}}
+            />
           ))}
         </ScrollView>
         <Logger onRef={ref => (this.loggerRef = ref)} />
@@ -208,16 +199,5 @@ const styles = StyleSheet.create({
   list: {
     flex: 1,
     marginTop: 20
-  },
-  link: {
-    textAlign: "right",
-    color: "rgba(0,122,255,1)"
-  },
-  item: {
-    backgroundColor: "white",
-    padding: 20,
-    width: 400,
-    borderRadius: 8,
-    overflow: "hidden"
   }
 });

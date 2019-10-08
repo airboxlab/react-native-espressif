@@ -13,7 +13,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2E2757A423311DD9003EA73F /* bridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2757A323311DD9003EA73F /* bridge.swift */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
-		F633CA5DFD65D1550C4A24E0 /* libPods-EspressifSample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EC81D87BC98EDEB96C5F8D /* libPods-EspressifSample.a */; };
+		FC0A9AC025EACDB1BDFA7A10 /* libPods-ReactNativeEspressif.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 244ADB9620010A2E1C8BB259 /* libPods-ReactNativeEspressif.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -283,13 +283,15 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = EspressifSample/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = EspressifSample/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		244ADB9620010A2E1C8BB259 /* libPods-ReactNativeEspressif.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ReactNativeEspressif.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E2757A223311DD8003EA73F /* EspressifSample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EspressifSample-Bridging-Header.h"; sourceTree = "<group>"; };
 		2E2757A323311DD9003EA73F /* bridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bridge.swift; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
-		73EC81D87BC98EDEB96C5F8D /* libPods-EspressifSample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EspressifSample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		9859E918E810D4E8D812F6DF /* Pods-ReactNativeEspressif.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReactNativeEspressif.debug.xcconfig"; path = "Target Support Files/Pods-ReactNativeEspressif/Pods-ReactNativeEspressif.debug.xcconfig"; sourceTree = "<group>"; };
+		9B135ABC556358AC55DD574B /* Pods-ReactNativeEspressif.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReactNativeEspressif.release.xcconfig"; path = "Target Support Files/Pods-ReactNativeEspressif/Pods-ReactNativeEspressif.release.xcconfig"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		B59D8DEE39C6B88502A5DD13 /* Pods-EspressifSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EspressifSample.debug.xcconfig"; path = "Target Support Files/Pods-EspressifSample/Pods-EspressifSample.debug.xcconfig"; sourceTree = "<group>"; };
 		B6C32026F7418E5FD30A14F5 /* Pods-EspressifSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EspressifSample.release.xcconfig"; path = "Target Support Files/Pods-EspressifSample/Pods-EspressifSample.release.xcconfig"; sourceTree = "<group>"; };
@@ -303,7 +305,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */,
-				F633CA5DFD65D1550C4A24E0 /* libPods-EspressifSample.a in Frameworks */,
+				FC0A9AC025EACDB1BDFA7A10 /* libPods-ReactNativeEspressif.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -432,7 +434,7 @@
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
-				73EC81D87BC98EDEB96C5F8D /* libPods-EspressifSample.a */,
+				244ADB9620010A2E1C8BB259 /* libPods-ReactNativeEspressif.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -520,6 +522,8 @@
 			children = (
 				B59D8DEE39C6B88502A5DD13 /* Pods-EspressifSample.debug.xcconfig */,
 				B6C32026F7418E5FD30A14F5 /* Pods-EspressifSample.release.xcconfig */,
+				9859E918E810D4E8D812F6DF /* Pods-ReactNativeEspressif.debug.xcconfig */,
+				9B135ABC556358AC55DD574B /* Pods-ReactNativeEspressif.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -925,7 +929,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-EspressifSample-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-ReactNativeEspressif-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -962,7 +966,7 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B59D8DEE39C6B88502A5DD13 /* Pods-EspressifSample.debug.xcconfig */;
+			baseConfigurationReference = 9859E918E810D4E8D812F6DF /* Pods-ReactNativeEspressif.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -1014,7 +1018,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B6C32026F7418E5FD30A14F5 /* Pods-EspressifSample.release.xcconfig */;
+			baseConfigurationReference = 9B135ABC556358AC55DD574B /* Pods-ReactNativeEspressif.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

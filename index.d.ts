@@ -13,6 +13,9 @@ export enum ESPDeviceState {
 }
 
 interface Config {
+  bleConfigUuid: string;
+  bleServiceUuid: string;
+  bleSessionUuid: string;
   transportType: ESPTransportType;
   securityType: ESPSecurityType;
   bleDeviceNamePrefix: string;
@@ -38,6 +41,8 @@ export interface Event {
 
 export interface Espressif {
   setConfig(config: Config): Promise<Void>;
+  startSession(uuid: string): Promive<Void>;
+  getDeviceInfo(): Promise<Void>;
   onSateChanged(callback: (state: State, devices: [Device], error: Error?) => void);
   connectTo(uuid: string);
   setCredentials(ssid: string, passphrase: string, uuid: string);

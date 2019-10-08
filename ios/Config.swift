@@ -8,9 +8,9 @@
 import Foundation
 
 let PROOF_OF_POSSESSION = "abcd1234"
-let BLE_CONFIG_UUID = "0000FF52-0000-1000-8000-00805F9B34FB"
-let BLE_SERVICE_UUID = "0000ffff-0000-1000-8000-00805f9b34fb"
-let BLE_SESSION_UUID = "0000ff51-0000-1000-8000-00805f9b34fb"
+var BLE_CONFIG_UUID = "0000FF52-0000-1000-8000-00805F9B34FB"
+var BLE_SERVICE_UUID = "0000ffff-0000-1000-8000-00805f9b34fb"
+var BLE_SESSION_UUID = "0000ff51-0000-1000-8000-00805f9b34fb"
 var BLE_DEVICE_NAME_PREFIX = "PROV_"
 var WIFI_BASEURL = "192.168.4.1:80"
 var WIFI_NETWORKNAME_PREFIX = "mysoftap"
@@ -24,6 +24,9 @@ class EspressifConfig {
 		case BleDeviceNamePrefix = "bleDeviceNamePrefix"
 		case WifiBaseUrl = "wifiBaseUrl"
 		case WifiNetworkNamePrefix = "wifiNetworkNamePrefix"
+		case BleConfigUuid = "bleConfigUuid"
+		case BleSessionUuid = "bleSessionUuid"
+		case BleServiceUuid = "bleServiceUuid"
 	}
 	
 	enum TransportType: String {
@@ -63,6 +66,12 @@ class EspressifConfig {
 				WIFI_BASEURL = (value as? String) ?? "192.168.4.1:80"
 			case .WifiNetworkNamePrefix:
 				WIFI_NETWORKNAME_PREFIX = (value as? String) ?? "mysoftap"
+			case .BleConfigUuid:
+				BLE_CONFIG_UUID = (value as? String) ?? "0000FF52-0000-1000-8000-00805F9B34FB"
+			case .BleServiceUuid:
+				BLE_SERVICE_UUID = (value as? String) ?? "0000ffff-0000-1000-8000-00805f9b34fb"
+			case .BleSessionUuid:
+				BLE_SESSION_UUID = (value as? String) ?? "0000ff51-0000-1000-8000-00805f9b34fb"
 			}
 		}
 	}
@@ -83,6 +92,12 @@ extension EspressifConfig.OptionsType {
 			self = .WifiBaseUrl
 		case "wifiNetworkNamePrefix":
 			self = .WifiNetworkNamePrefix
+		case "bleConfigUuid":
+			self = .BleConfigUuid
+		case "bleSessionUuid":
+			self = .BleSessionUuid
+		case "bleServiceUuid":
+			self = .BleServiceUuid
 		default:
 			throw EspressifConfig.Errors.optionUndefined(option: value)
 		}
