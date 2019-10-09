@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { ESPDeviceState } from "react-native-espressif";
 
 const styles = StyleSheet.create({
   link: {
@@ -66,7 +67,7 @@ export default class Device extends React.Component {
             </Text>
           </View>
         </TouchableOpacity>
-        {device.state === "SESSION_ESTABLISHED" ? (
+        {device.state === ESPDeviceState.SessionEstablished ? (
           <View
             style={{
               flexDirection: "row",

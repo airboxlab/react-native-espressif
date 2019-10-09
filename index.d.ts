@@ -9,13 +9,24 @@ export enum ESPTransportType {
 }
 
 export enum ESPDeviceState {
-  Configured = "CONFIGURED"
+  Configured = "CONFIGURED",
+  SessionEstablished = "SESSION_ESTABLISHED"
+}
+
+export enum ESPNetworkStatus {
+  NotStarted = "NOT_STARTED",
+  InProgress = "IN_PROGRESS",
+  Ok = "OK",
+  Nok = "NOK"
+}
+
+interface NetworkComponentStatus {
+  ip: boolean;
+  internet: boolean;
+  cloud: boolean;
 }
 
 interface Config {
-  bleConfigUuid: string;
-  bleServiceUuid: string;
-  bleSessionUuid: string;
   transportType: ESPTransportType;
   securityType: ESPSecurityType;
   bleDeviceNamePrefix: string;
@@ -26,6 +37,12 @@ interface Config {
 interface Device {
   name: string;
   uuid: string;
+  state: ESPEventState;
+  onNetworkStatusChanged: (status: ESPNetworkStatus, components: NetworkComponentStatus) => void;
+  onStatusChanged: (device: Device) => void;
+  startSession();
+  connect();
+  setCredentials(ssid: string, passphrase: string);
 }
 
 export enum ESPEventState {
@@ -41,11 +58,7 @@ export interface Event {
 
 export interface Espressif {
   setConfig(config: Config): Promise<Void>;
-  startSession(uuid: string): Promive<Void>;
-  getDeviceInfo(): Promise<Void>;
-  onSateChanged(callback: (state: State, devices: [Device], error: Error?) => void);
-  connectTo(uuid: string);
-  setCredentials(ssid: string, passphrase: string, uuid: string);
+  onStateChanged: (state: State, devices: [Device], error: Error?) => void;
 }
 
 export interface EspressifWrapper extends Espressif {

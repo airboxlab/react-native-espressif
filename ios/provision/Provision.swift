@@ -256,7 +256,6 @@ class Provision {
 		return try security.encrypt(data: deviceData.serializedData())
 	}
 	
-//	private func GetDeviceInfo() ->
 	
 	private func processSetWifiConfigResponse(response: Data?) -> Espressif_Status {
 		guard let response = response else {

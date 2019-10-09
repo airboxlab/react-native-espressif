@@ -8,16 +8,46 @@
 import Foundation
 import CoreBluetooth
 
+struct EspressifPeripheralNetwork: Codable {
+	enum State: String, Codable {
+		case notStarted = "NOT_STARTED" // 0
+		case inProgress = "IN_PROGRESS" // 1
+		case ok = "OK" // = 2
+		case nok = "NOK" // = 3
+		
+		init?(intValue: Int) {
+			switch intValue {
+			case 0: self = .notStarted
+			case 1: self = .inProgress
+			case 2: self = .ok
+			case 3: self = .nok
+			default:
+				self = .nok
+			}
+		}
+	}
+	
+	var testIp : State = .notStarted
+	var testInternet: State = .notStarted
+	var testCloud: State = .notStarted
+}
+
+
 struct EspressifPeripheral: Codable {
 	var uuid: String
 	var name: String
 	var state: State
+	var networkStatus: EspressifPeripheralNetwork
 	
 	enum State: String, Codable {
 		case notConfigured = "NOT_CONFIGURED"
 		case configured = "CONFIGURED"
 		case disconnected = "DISCONNECTED"
 		case sessionEstablished = "SESSION_ESTABLISHED"
+		case credentialsStarted = "CREDENTIALS_STARTED"
+		case credentialsSet = "CREDENTIALS_SET"
+		case credentialsApplied = "CREDENTIALS_APPLIED"
+		case networkTest = "NETWORK_TEST"
 	}
 }
 
@@ -47,6 +77,8 @@ class Espressif: RCTEventEmitter {
 	
 	private var peripherals: [CBPeripheral] = []
 	
+	private var deviceNetworkState: EspressifPeripheralNetwork?
+	
 	
 	override static func requiresMainQueueSetup() -> Bool {
 		return true
@@ -73,7 +105,7 @@ class Espressif: RCTEventEmitter {
 	}
 	
 	override func supportedEvents() -> [String]! {
-		return ["devices-state", "log"]
+		return ["devices-state", "log", "device-status", "network-state"]
 	}
 	
 	@objc func setConfig(_ config: NSDictionary, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
@@ -157,14 +189,14 @@ class Espressif: RCTEventEmitter {
 			self.provision = Provision(session: newSession)
 			self.session = newSession
 			
-			self.sendEvent(EspressifEvent(state: .deviceUpdated, message: "Session Started", peripherals: self.peripherals.map {
-				var state : EspressifPeripheral.State = .notConfigured
-				if peripheral?.identifier.uuidString == $0.identifier.uuidString {
-					state = .sessionEstablished
-				}
-
-				return EspressifPeripheral(uuid:$0.identifier.uuidString, name: $0.name ?? "Unnamed", state: state)
-			}))
+			if let peripheral = peripheral {
+				self.sendEvent(EspressifPeripheral(
+					uuid:peripheral.identifier.uuidString,
+					name:peripheral.name ?? "Unnamed",
+					state: .sessionEstablished,
+					networkStatus: EspressifPeripheralNetwork(testIp: .notStarted, testInternet: .notStarted, testCloud: .notStarted)
+				))
+			}
 			
 			resolve(nil)
 		}
@@ -218,9 +250,64 @@ class Espressif: RCTEventEmitter {
 						completionHandler(response, nil)
 				}
 			}
-			
-			
 		}
+	}
+	
+	@objc func startNetworkTest(_ uuid: String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock){
+		self.deviceNetworkState = EspressifPeripheralNetwork()
+		
+		self.networkTestStatus(uuid, resolve: resolve, reject: reject)
+	}
+	
+	func networkTestStatus(_ uuid: String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
+		if self.transport == nil || self.security == nil {
+			reject("ERROR", "react-native-espressif is not initialized", nil)
+			return
+		}
+		
+		let peripheral = self.peripherals.first { $0.identifier.uuidString == uuid }
+		if peripheral == nil {
+			reject("ERROR", "Peripheral not found", nil)
+			return
+		}
+		
+		var requestData = NetworkTestStatusRequest()
+		requestData.protocolVersion = 1
+		self.provision?.send(to: "network-test", data: requestData, completionHandler: { (status, response: NetworkTestStatusResponse?, error) in
+			guard error == nil else {
+				reject("ERROR", "Error in sending wifi credentials : \(error.debugDescription)", error)
+				return
+			}
+			
+			guard let response = response else {
+				reject("ERROR", "Error during network test response is nil", nil)
+				return
+			}
+			
+			var networkStatus = EspressifPeripheralNetwork(testIp: .notStarted, testInternet: .notStarted, testCloud: .notStarted)
+			networkStatus.testIp = EspressifPeripheralNetwork.State(intValue: response.statusTestIp.rawValue) ?? .nok
+			networkStatus.testCloud = EspressifPeripheralNetwork.State(intValue: response.statusTestCloud.rawValue) ?? .nok
+			networkStatus.testInternet = EspressifPeripheralNetwork.State(intValue: response.statusTestInternet.rawValue) ?? .nok
+			
+			self.sendEvent(EspressifPeripheral(
+				uuid: peripheral!.identifier.uuidString,
+				name: peripheral!.name ?? "Unnamed",
+				state: .networkTest,
+				networkStatus: networkStatus
+			))
+			
+			if response.statusTestCloud == .testOk && response.statusTestInternet == .testOk && response.statusTestIp == .testOk {
+				resolve(nil)
+				return
+			} else if response.statusTestCloud == .testNok || response.statusTestInternet == .testNok || response.statusTestIp == .testNok {
+				reject("ERROR", "A test failed", nil)
+				return
+			}
+			
+			DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+				self.networkTestStatus(uuid, resolve: resolve, reject: reject)
+			}
+		})
 	}
 	
 	@objc func setCredentials(_ ssid: String, passphrase: String, uuid: String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock){
@@ -233,6 +320,26 @@ class Espressif: RCTEventEmitter {
 		configData.msg = Espressif_WiFiConfigMsgType.typeCmdSetConfig
 		configData.cmdSetConfig.ssid = Data(ssid.bytes)
 		configData.cmdSetConfig.passphrase = Data(passphrase.bytes)
+		
+		print("""
+		Set Credentials
+		SSID \(ssid)
+		PASSPHRASE \(passphrase)
+		uuid \(uuid)
+		""")
+
+		let peripheral = self.peripherals.first { $0.identifier.uuidString == uuid }
+		if peripheral == nil {
+			reject("ERROR", "Peripheral not found", nil)
+			return
+		}
+		
+		self.sendEvent(EspressifPeripheral(
+			uuid: peripheral!.identifier.uuidString,
+			name: peripheral!.name ?? "Unnamed",
+			state: .credentialsStarted,
+			networkStatus: EspressifPeripheralNetwork(testIp: .notStarted, testInternet: .notStarted, testCloud: .notStarted)
+		))
 
 		self.provision?.send(to: "prov-config", data: configData) { (status, response: Espressif_WiFiConfigPayload?, error) in
 			guard error == nil else {
@@ -246,6 +353,13 @@ class Espressif: RCTEventEmitter {
 				print("ERROR")
 				return
 			}
+			
+			self.sendEvent(EspressifPeripheral(
+				uuid: peripheral!.identifier.uuidString,
+				name: peripheral!.name ?? "Unnamed",
+				state: .credentialsSet,
+				networkStatus: EspressifPeripheralNetwork(testIp: .notStarted, testInternet: .notStarted, testCloud: .notStarted)
+			))
 
 			var applyData = Espressif_WiFiConfigPayload()
 			applyData.cmdApplyConfig = Espressif_CmdApplyConfig()
@@ -263,81 +377,76 @@ class Espressif: RCTEventEmitter {
 					return
 				}
 				
+				self.sendEvent(EspressifPeripheral(
+					uuid: peripheral!.identifier.uuidString,
+					name: peripheral!.name ?? "Unnamed",
+					state: .credentialsApplied,
+					networkStatus: EspressifPeripheralNetwork(testIp: .notStarted, testInternet: .notStarted, testCloud: .notStarted)
+				))
+				
 				self.getWifiStatus { response, error in
 					if error != nil {
 						reject("ERROR", "Error in sending wifi credentials : \(status.rawValue)", error)
 						return
 					}
 						
-					do {
-						resolve(try response?.jsonString())
-					} catch {
-						reject("ERROR", "Error in sending wifi credentials : \(status.rawValue)", error)
+//					do {
+					if response?.respGetStatus.staState == Espressif_WifiStationState.connected {
+						self.networkTestStatus(uuid, resolve: resolve, reject: reject)
+					} else {
+						reject("ERROR", "The wifi status is not correct", nil)
 					}
+//						resolve(try response?.jsonString())
+//					} catch {
+//						reject("ERROR", "Error in sending wifi credentials : \(status.rawValue)", error)
+//					}
 					
 				}
 			}
 		}
-//			provision.sendProtocolVersion(version: 1) { status, error in
-//
-//				print("STATUS \(status)")
-//
-//				provision.configureWifi(ssid: ssid, passphrase: passphrase) { status, error in
-//					guard error == nil else {
-//						reject("ERROR", "Error in configuring wifi : \(error.debugDescription)", error)
-//						return
-//					}
-//					print("CONFIGURE WIFI \(status)")
-//					if status == Espressif_Status.success {
-//
-//						provision.applyConfigurations(completionHandler: { status, error in
-//							guard error == nil else {
-//								reject("ERROR", "Error in applying configurations : \(error.debugDescription)", nil)
-//								return
-//							}
-//						}, wifiStatusUpdatedHandler: { wifiState, failReason, error in
-//							DispatchQueue.main.async {
-//								if error != nil {
-//									reject("ERROR", "Error in getting wifi state : \(error.debugDescription)", error)
-//								} else if wifiState == Espressif_WifiStationState.connected {
-//									resolve("Device connected")
-//								} else if wifiState == Espressif_WifiStationState.disconnected {
-//									reject("ERROR","Please check the device indicators for Provisioning status.", nil)
-//								} else {
-//									reject("ERROR", "Device provisioning failed.\nReason : \(failReason).\nPlease try again", nil)
-//								}
-//							}
-//						})
-//					}
-//				}
-//			}
 	}
 	
-	func sendEvent(_ event: EspressifEvent){
+	func sendEvent(to name: String, _ event: EspressifEvent){
 		do {
 			let jsonData = try JSONEncoder().encode(event)
 			let json = String(data: jsonData, encoding: .utf8)!
 		
-			self.sendEvent(withName: "devices-state", body: json)
+			self.sendEvent(withName: name, body: json)
 			print("Event sended")
 		} catch let e {
 			print("ERROR SEND EVENT \(e.localizedDescription)")
 		}
 	}
 	
+	
+	func sendEvent(_ body: EspressifPeripheral) {
+		do {
+			let jsonData = try JSONEncoder().encode(body)
+			let json = String(data: jsonData, encoding: .utf8)!
+		
+			self.sendEvent(withName: "device-status", body: json)
+		} catch let e {
+			print("ERROR SEND EVENT \(e.localizedDescription)")
+		}
+	}
 }
 
 extension Espressif: BLETransportDelegate {
 	func peripheralsFound(peripherals: [CBPeripheral]) {
 		self.peripherals = peripherals
-		self.sendEvent(EspressifEvent(state: .devicesFound, message: "FOUND", peripherals: peripherals.map {
-			return EspressifPeripheral(uuid:$0.identifier.uuidString, name: $0.name ?? "Unnamed", state: .notConfigured)
+		self.sendEvent(to: "devices-state", EspressifEvent(state: .devicesFound, message: "FOUND", peripherals: peripherals.map {
+			return EspressifPeripheral(
+				uuid:$0.identifier.uuidString,
+				name: $0.name ?? "Unnamed",
+				state: .notConfigured,
+				networkStatus: EspressifPeripheralNetwork(testIp: .notStarted, testInternet: .notStarted, testCloud: .notStarted)
+			)
 		}))
 	}
 	
 	func peripheralsNotFound(serviceUUID: UUID?) {
 		self.peripherals = []
-		self.sendEvent(EspressifEvent(state: .devicesNotFound, message: "NOT FOUND", peripherals: []))
+		self.sendEvent(to: "devices-state", EspressifEvent(state: .devicesNotFound, message: "NOT FOUND", peripherals: []))
 	}
 	
 	func peripheralConfigured(peripheral: CBPeripheral) {
@@ -347,25 +456,31 @@ extension Espressif: BLETransportDelegate {
 			}
 		}
 		
-		self.sendEvent(EspressifEvent(state: .deviceUpdated, message: "Configured", peripherals: peripherals.map {
-			var state : EspressifPeripheral.State = .notConfigured
-			if peripheral.identifier.uuidString == $0.identifier.uuidString {
-				state = .configured
-			}
-
-			return EspressifPeripheral(uuid:$0.identifier.uuidString, name: $0.name ?? "Unnamed", state: state)
-		}))
+		self.sendEvent(EspressifPeripheral(
+			uuid:peripheral.identifier.uuidString,
+			name:peripheral.name ?? "Unnamed",
+			state: .configured,
+			networkStatus: EspressifPeripheralNetwork(testIp: .notStarted, testInternet: .notStarted, testCloud: .notStarted)
+		))
 	}
 	
 	func peripheralNotConfigured(peripheral: CBPeripheral) {
-		self.peripherals = []
-		self.sendEvent(EspressifEvent(state: .deviceUpdated, message: "NotConfigured", peripherals: []))
+		self.sendEvent(EspressifPeripheral(
+			uuid:peripheral.identifier.uuidString,
+			name:peripheral.name ?? "Unnamed",
+			state: .notConfigured,
+			networkStatus: EspressifPeripheralNetwork(testIp: .notStarted, testInternet: .notStarted, testCloud: .notStarted)
+		))
+
 	}
 	
 	func peripheralDisconnected(peripheral: CBPeripheral, error: Error?) {
 		self.peripherals = []
-		self.sendEvent(EspressifEvent(state: .deviceUpdated, message: "Disconnected", peripherals: []))
+		self.sendEvent(EspressifPeripheral(
+			uuid:peripheral.identifier.uuidString,
+			name:peripheral.name ?? "Unnamed",
+			state: .disconnected,
+			networkStatus: EspressifPeripheralNetwork(testIp: .notStarted, testInternet: .notStarted, testCloud: .notStarted)
+		))
 	}
-	
-	
 }

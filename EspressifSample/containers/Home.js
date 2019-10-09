@@ -39,10 +39,36 @@ export default class App extends Component {
 
     this.scanDevices = this.scanDevices.bind(this);
     this.load = this.load.bind(this);
+    this.deviceStatusChanged = this.deviceStatusChanged.bind(this);
   }
 
   componentDidMount() {
     this.props.navigation.addListener("willFocus", this.load);
+  }
+
+  async deviceStatusChanged(device) {
+    const { devices } = this.state;
+
+    let index = devices.findIndex(temp => temp.uuid === device.uuid);
+    devices[index] = device;
+
+    this.loggerRef.addLine(
+      `Device status changed ${device ? JSON.stringify(device, null, 2) : null}`
+    );
+
+    switch (device.state) {
+      case ESPDeviceState.Configured:
+        this.loggerRef.addLine("Start session");
+        await device.startSession();
+        break;
+      case ESPDeviceState.SessionEstablished:
+        this.loggerRef.addLine("Session established");
+        this.setState({ selectedDevice: device });
+      default:
+        break;
+    }
+
+    this.setState({ devices: [...devices] });
   }
 
   async load() {
@@ -57,30 +83,44 @@ export default class App extends Component {
         )}`
       );
 
-      this.espressif.onStateChanged((state, devices) => {
-        console.info({ state, devices });
-
+      this.espressif.OnStateChanged = (state, devices) => {
         this.loggerRef.addLine(`STATE [${state}]`);
+        this.setState({ devices });
+
         devices.forEach(device => {
-          this.loggerRef.addLine(
-            `[${device.uuid}] ${device.name} ${device.state}`
-          );
-          if (device.state === ESPDeviceState.Configured) {
-            this.loggerRef.addLine(`Start session to ${device.uuid}`);
-            this.espressif.startSession(device.uuid).then(
-              () => {
-                this.loggerRef.addLine("Session established");
-              },
-              err => {
-                console.error(err);
-              }
-            );
-          } else if (device.state === "SESSION_ESTABLISHED") {
-            this.setState({ selectedDevice: device });
+          if (!device.onStatusChanged) {
+            device.onStatusChanged = this.deviceStatusChanged;
           }
         });
-        this.setState({ devices });
-      });
+        // devices.forEach(device => {
+
+        // })
+      };
+
+      // this.espressif.onStateChanged((state, devices) => {
+      //   console.info({ state, devices });
+
+      //   this.loggerRef.addLine(`STATE [${state}]`);
+      //   devices.forEach(device => {
+      //     this.loggerRef.addLine(
+      //       `[${device.uuid}] ${device.name} ${device.state}`
+      //     );
+      //     if (device.state === ESPDeviceState.Configured) {
+      //       this.loggerRef.addLine(`Start session to ${device.uuid}`);
+      //       this.espressif.startSession(device.uuid).then(
+      //         () => {
+      //           this.loggerRef.addLine("Session established");
+      //         },
+      //         err => {
+      //           console.error(err);
+      //         }
+      //       );
+      //     } else if (device.state === "SESSION_ESTABLISHED") {
+      //       this.setState({ selectedDevice: device });
+      //     }
+      //   });
+      //
+      // });
 
       this.setState({ status: "Ready" });
 
@@ -113,15 +153,11 @@ export default class App extends Component {
           }}
           onSubmit={async (ssid, passphrase) => {
             try {
-              const data = await this.espressif.setCredentials(
-                ssid,
-                passphrase,
-                selectedDevice.uuid
-              );
               this.setState({ displayCredentialsModal: false });
-              this.loggerRef.addLine(
-                `Credentials successfully changed ${JSON.stringify(JSON.parse(data), null, 2)}`
-              );
+
+              await selectedDevice.setCredentials(ssid, passphrase);
+
+              this.loggerRef.addLine(`Credentials successfully changed`);
             } catch (e) {
               console.info(e);
               this.loggerRef.addLine(e);
@@ -142,9 +178,9 @@ export default class App extends Component {
             <Device
               key={device.uuid}
               device={device}
-              connectTo={async () => {
+              connectTo={() => {
                 this.loggerRef.addLine(`Connect to ${device.uuid}`);
-                this.espressif.connectTo(device.uuid);
+                device.connect();
               }}
               setCredentials={() => {
                 this.setState({ displayCredentialsModal: true });
@@ -154,7 +190,11 @@ export default class App extends Component {
                   this.loggerRef.addLine("GET DEVICE INFO");
                   const data = await this.espressif.getDeviceInfo();
                   this.loggerRef.addLine(
-                    `Get device info ${JSON.stringify(JSON.parse(data), null, 2)}`
+                    `Get device info ${JSON.stringify(
+                      JSON.parse(data),
+                      null,
+                      2
+                    )}`
                   );
                 } catch (e) {
                   console.error(e);
