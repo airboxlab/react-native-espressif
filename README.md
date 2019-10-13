@@ -1,4 +1,17 @@
+React Natine Package of BluFi for ESP32 network configurator BluFi. This app sends to a ESP32 device the SSID and passphrase to which the IoT device will connect to. Goal of this package is to ease integration of ESP32 network configuration in your React Native app. 
+
 # react-native-espressif
+
+## References
+
+1. BluFi documentation: https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/blufi.html
+2. BluFi reference iOS app: https://apps.apple.com/us/app/espblufi/id1450614082
+3. BluFi iOS source: https://github.com/EspressifApp/EspBlufiForiOS
+4. BluFi Android source: https://github.com/EspressifApp/EspBlufiForAndroid
+
+## Requierements
+
+TODO
 
 ## Getting started
 
@@ -19,7 +32,7 @@
 
 #### Android
 
-⚠ Due to a lack of time, `react-native-espressif` is not supported on Android for now.
+⚠ `react-native-espressif` is not supported on Android for now, contributions welcome.
 
 ~~1. Open up `android/app/src/main/java/[...]/MainApplication.java`~~
   ~~- Add `import com.reactlibrary.EspressifPackage;` to the imports at the top of the file~~
