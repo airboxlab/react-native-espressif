@@ -20,7 +20,12 @@ const setCallback = device => {
 
   device.scanWifi = async () => {
     return await Espressif.scanWifi(device.uuid);
-  }
+  };
+
+  device.networkTest = async () => {
+    return await Espressif.networkTestStatus(device.uuid);
+  };
+
   return device;
 };
 

@@ -10,8 +10,8 @@ import CoreBluetooth
 
 struct EspressifWifi: Codable {
 	var ssid: String
-	var channel: UInt32
-	var rssi: Int32
+	var channel: Int
+	var rssi: Int
 	var auth: AuthMode
 	
 	enum AuthMode: String, Codable {
@@ -200,10 +200,10 @@ class Espressif: RCTEventEmitter {
 		}
 	}
 	
-	func scanWifi(wifis: [EspressifWifi], index: UInt32, count: UInt32, completion: @escaping (_ wifis: [EspressifWifi], _ error: Error?) -> Void) {
+	func scanWifi(wifis: [EspressifWifi], index: Int, count: Int, completion: @escaping (_ wifis: [EspressifWifi], _ error: Error?) -> Void) {
 		var resultWifi = WiFiScanPayload()
 		resultWifi.msg = .typeCmdScanResult
-		resultWifi.cmdScanResult.startIndex = index
+		resultWifi.cmdScanResult.startIndex = UInt32(index)
 		resultWifi.cmdScanResult.count = 4
 		self.provision?.send(to: "prov-scan", data: resultWifi, completionHandler: { (status, response: WiFiScanPayload?, error) in
 			guard error == nil else {
@@ -216,14 +216,14 @@ class Espressif: RCTEventEmitter {
 			var wifis = wifis
 			
 			
-			if let response = response {
-				count -= UInt32(response.respScanResult.entries.count)
-				index += UInt32(response.respScanResult.entries.count - 1)
+			if let entries = response?.respScanResult.entries {
+				count -= entries.count
+				index += entries.count - 1
 
-				response.respScanResult.entries.forEach {
+				entries.forEach {
 					let ssid = String(data: $0.ssid, encoding: .isoLatin1)
-					let channel = $0.channel
-					let rssi = $0.rssi
+					let channel = Int($0.channel)
+					let rssi = Int($0.rssi)
 					let authMode = EspressifWifi.AuthMode(intValue: $0.auth.rawValue)
 					if let ssid = ssid {
 						wifis.append(EspressifWifi(ssid: ssid, channel: channel, rssi: rssi, auth: authMode))
@@ -282,7 +282,7 @@ class Espressif: RCTEventEmitter {
 					return
 				}
 
-				self.scanWifi(wifis: [], index: 0, count: resultCount) { (wifis, error) in
+				self.scanWifi(wifis: [], index: 0, count: Int(resultCount)) { (wifis, error) in
 					guard error == nil else {
 						reject("ERROR", "Error getting ssids", error)
 						return
@@ -400,7 +400,7 @@ class Espressif: RCTEventEmitter {
 		self.networkTestStatus(uuid, resolve: resolve, reject: reject)
 	}
 	
-	func networkTestStatus(_ uuid: String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
+	@objc func networkTestStatus(_ uuid: String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
 		if self.transport == nil || self.security == nil {
 			reject("ERROR", "react-native-espressif is not initialized", nil)
 			return
@@ -533,7 +533,8 @@ class Espressif: RCTEventEmitter {
 						
 //					do {
 					if response?.respGetStatus.staState == Espressif_WifiStationState.connected {
-						self.networkTestStatus(uuid, resolve: resolve, reject: reject)
+						resolve(nil)
+//						self.networkTestStatus(uuid, resolve: resolve, reject: reject)
 					} else {
 						reject("ERROR", "The wifi status is not correct", nil)
 					}

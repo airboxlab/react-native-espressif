@@ -10,6 +10,7 @@ RCT_EXTERN_METHOD(setCredentials:(NSString*)ssid passphrase:(NSString*)passphras
 
 RCT_EXTERN_METHOD(startSession:(NSString*)uuid resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 RCT_EXTERN_METHOD(scanWifi:(NSString*)uuid resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
+RCT_EXTERN_METHOD(networkTestStatus:(NSString*)uuid resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 RCT_EXTERN_METHOD(getDeviceInfo:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 RCT_EXTERN_METHOD(connectTo:(NSString*)uuid)
 @end
