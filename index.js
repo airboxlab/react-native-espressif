@@ -17,6 +17,10 @@ const setCallback = device => {
   device.setCredentials = async (ssid, passphrase) => {
     return await Espressif.setCredentials(ssid, passphrase, device.uuid);
   };
+
+  device.scanWifi = async () => {
+    return await Espressif.scanWifi(device.uuid);
+  }
   return device;
 };
 

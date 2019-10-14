@@ -92,35 +92,7 @@ export default class App extends Component {
             device.onStatusChanged = this.deviceStatusChanged;
           }
         });
-        // devices.forEach(device => {
-
-        // })
       };
-
-      // this.espressif.onStateChanged((state, devices) => {
-      //   console.info({ state, devices });
-
-      //   this.loggerRef.addLine(`STATE [${state}]`);
-      //   devices.forEach(device => {
-      //     this.loggerRef.addLine(
-      //       `[${device.uuid}] ${device.name} ${device.state}`
-      //     );
-      //     if (device.state === ESPDeviceState.Configured) {
-      //       this.loggerRef.addLine(`Start session to ${device.uuid}`);
-      //       this.espressif.startSession(device.uuid).then(
-      //         () => {
-      //           this.loggerRef.addLine("Session established");
-      //         },
-      //         err => {
-      //           console.error(err);
-      //         }
-      //       );
-      //     } else if (device.state === "SESSION_ESTABLISHED") {
-      //       this.setState({ selectedDevice: device });
-      //     }
-      //   });
-      //
-      // });
 
       this.setState({ status: "Ready" });
 
