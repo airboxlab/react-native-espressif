@@ -201,7 +201,22 @@ export default class App extends Component {
                   this.loggerRef.addLine(`ERROR ${JSON.stringify(e, null, 2)}`);
                 }
               }}
-              scanWifi={async () => {}}
+              scanWifi={async () => {
+                try {
+                  const wifis = await device.scanWifi();
+
+                  this.loggerRef.addLine(
+                    `Scan wifi finished ${JSON.stringify(
+                      JSON.parse(wifis),
+                      null,
+                      2
+                    )}`
+                  );
+                } catch (e) {
+                  console.info(e);
+                  // this.loggerRef.addLine(`ERROR ${JSON.stringify(e, null, 2)}`);
+                }
+              }}
             />
           ))}
         </ScrollView>

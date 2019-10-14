@@ -8,6 +8,42 @@
 import Foundation
 import CoreBluetooth
 
+struct EspressifWifi: Codable {
+	var ssid: String
+	var channel: UInt32
+	var rssi: Int32
+	var auth: AuthMode
+	
+	enum AuthMode: String, Codable {
+		case Open = "OPEN"
+		case WEP = "WEP"
+		case WPA_PSK = "WPA_PSK"
+		case WPA2_PSK = "WPA2_PSK"
+		case WPA_WPA2_PSK = "WPA_WPA2_PSK"
+		case WPA_ENTERPRISE = "WPA_ENTERPRISE"
+		
+		init(intValue: Int) {
+			switch intValue {
+			case 0:
+				self = .Open
+				break;
+			case 1:
+				self = .WEP
+			case 2:
+				self = .WPA_PSK
+			case 3:
+				self = .WPA2_PSK
+			case 4:
+				self = .WPA_WPA2_PSK
+			case 5:
+				self = .WPA_ENTERPRISE
+			default:
+				self = .Open
+			}
+		}
+	}
+}
+
 struct EspressifPeripheralNetwork: Codable {
 	enum State: String, Codable {
 		case notStarted = "NOT_STARTED" // 0
@@ -164,8 +200,113 @@ class Espressif: RCTEventEmitter {
 		}
 	}
 	
-	@objc func hasCapabilities() {
+	func scanWifi(wifis: [EspressifWifi], index: UInt32, count: UInt32, completion: @escaping (_ wifis: [EspressifWifi], _ error: Error?) -> Void) {
+		var resultWifi = WiFiScanPayload()
+		resultWifi.msg = .typeCmdScanResult
+		resultWifi.cmdScanResult.startIndex = index
+		resultWifi.cmdScanResult.count = 4
+		self.provision?.send(to: "prov-scan", data: resultWifi, completionHandler: { (status, response: WiFiScanPayload?, error) in
+			guard error == nil else {
+				completion(wifis, error)
+				return
+			}
+			
+			var count = count
+			var index = index
+			var wifis = wifis
+			
+			
+			if let response = response {
+				count -= UInt32(response.respScanResult.entries.count)
+				index += UInt32(response.respScanResult.entries.count - 1)
+
+				response.respScanResult.entries.forEach {
+					let ssid = String(data: $0.ssid, encoding: .isoLatin1)
+					let channel = $0.channel
+					let rssi = $0.rssi
+					let authMode = EspressifWifi.AuthMode(intValue: $0.auth.rawValue)
+					if let ssid = ssid {
+						wifis.append(EspressifWifi(ssid: ssid, channel: channel, rssi: rssi, auth: authMode))
+					}
+				}
+			 
+				if count > 0 {
+					self.scanWifi(wifis: wifis, index: index, count: count, completion: completion)
+				} else {
+					completion(wifis, nil)
+				}
+			}
+			
+		})
+	}
+	
+	@objc func scanWifi(_ uuid: String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
+		if self.transport == nil || self.security == nil {
+			reject("ERROR", "react-native-espressif is not initialized", nil)
+			return
+		}
 		
+		if self.provision == nil || self.session == nil {
+			reject("ERROR", "the session is not started", nil)
+			return
+		}
+		
+		var request = WiFiScanPayload()
+		request.msg = .typeCmdScanStart
+		request.cmdScanStart.blocking = true
+		request.cmdScanStart.groupChannels = 0
+		request.cmdScanStart.passive = false
+		request.cmdScanStart.periodMs = 120
+		
+		self.provision?.send(to: "prov-scan", data: request, completionHandler: { (status, response: WiFiScanPayload?, error) in
+			guard error == nil else {
+				reject("ERROR", "Error sending device-info : \(error.debugDescription)", error)
+				print("ERROR")
+				return
+			}
+			
+			print("Scan Start \(response?.status)")
+			
+			var scanRequest = WiFiScanPayload()
+			scanRequest.msg = .typeCmdScanStatus
+			self.provision?.send(to: "prov-scan", data: scanRequest, completionHandler: { (status, response: WiFiScanPayload?, error) in
+				print("++++ Scan results: \(response?.respScanStatus.resultCount)")
+
+				guard let resultCount = response?.respScanStatus.resultCount else {
+					reject("ERROR", "Error during network test response is nil", nil)
+					return
+				}
+				
+				if resultCount == 0 {
+					resolve("[]")
+					return
+				}
+
+				self.scanWifi(wifis: [], index: 0, count: resultCount) { (wifis, error) in
+					guard error == nil else {
+						reject("ERROR", "Error getting ssids", error)
+						return
+					}
+					
+					do {
+						let encoder = JSONEncoder()
+						let jsonData = try encoder.encode(wifis)
+						let jsonString = String(data: jsonData, encoding: .utf8)
+						print("JSON STRING \(jsonString)")
+						resolve(jsonString)
+					} catch {
+						reject("ERROR", "Error getting ssids", error)
+					}
+					
+				}
+			})
+			
+//			do {
+//				resolve(try response?.jsonString())
+//			} catch {
+//				reject("ERROR", "Serializing data", error);
+//			}
+		})
 	}
 	
 	@objc func startSession(_ uuid: String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {

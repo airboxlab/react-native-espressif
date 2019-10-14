@@ -28,6 +28,7 @@
 		2E0F90BA23268630001BC43C /* Security0.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F90B723268630001BC43C /* Security0.swift */; };
 		2E0F90BD23268662001BC43C /* HexUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F90BC23268662001BC43C /* HexUtils.swift */; };
 		2E0F90D923279837001BC43C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F90D823279837001BC43C /* Config.swift */; };
+		2ED3B183234E2E27005BD828 /* wifi_scan.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED3B182234E2E27005BD828 /* wifi_scan.pb.swift */; };
 		2EFA388B234B69F70090E64F /* device_info.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFA388A234B69F70090E64F /* device_info.pb.swift */; };
 		B3E7B58A1CC2AC0600A0062D /* Espressif.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* Espressif.m */; };
 /* End PBXBuildFile section */
@@ -69,6 +70,7 @@
 		2E0F90B723268630001BC43C /* Security0.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Security0.swift; sourceTree = "<group>"; };
 		2E0F90BC23268662001BC43C /* HexUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HexUtils.swift; sourceTree = "<group>"; };
 		2E0F90D823279837001BC43C /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		2ED3B182234E2E27005BD828 /* wifi_scan.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = wifi_scan.pb.swift; sourceTree = "<group>"; };
 		2EFA388A234B69F70090E64F /* device_info.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = device_info.pb.swift; sourceTree = "<group>"; };
 		B3E7B5891CC2AC0600A0062D /* Espressif.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Espressif.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -95,6 +97,7 @@
 		2E0F909023268578001BC43C /* proto */ = {
 			isa = PBXGroup;
 			children = (
+				2ED3B182234E2E27005BD828 /* wifi_scan.pb.swift */,
 				2EFA388A234B69F70090E64F /* device_info.pb.swift */,
 				2E0F909A23268611001BC43C /* constants.pb.swift */,
 				2E0F909723268611001BC43C /* sec0.pb.swift */,
@@ -254,6 +257,7 @@
 				B3E7B58A1CC2AC0600A0062D /* Espressif.m in Sources */,
 				2E0F90B223268623001BC43C /* SoftAPTransport.swift in Sources */,
 				2E0F90D923279837001BC43C /* Config.swift in Sources */,
+				2ED3B183234E2E27005BD828 /* wifi_scan.pb.swift in Sources */,
 				2E0F90AB2326861A001BC43C /* CryptoAES.swift in Sources */,
 				2E0F909C23268611001BC43C /* sec1.pb.swift in Sources */,
 				2E0F90B123268623001BC43C /* BLETransport.swift in Sources */,
