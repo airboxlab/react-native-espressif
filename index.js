@@ -1,5 +1,5 @@
-import { NativeModules, NativeEventEmitter } from "react-native";
-import PropTypes from "prop-types";
+import { NativeModules, NativeEventEmitter } from 'react-native';
+import PropTypes from 'prop-types';
 
 const { Espressif } = NativeModules;
 
@@ -26,6 +26,10 @@ const setCallback = device => {
     return await Espressif.networkTestStatus(device.uuid);
   };
 
+  device.disconnect = async () => {
+    return await Espressif.disconnect(device.uuid);
+  };
+
   return device;
 };
 
@@ -41,10 +45,9 @@ const Wrapper = () => {
   }
 
   Espressif.deviceStatus = RNEspressifEvent.addListener(
-    "device-status",
+    'device-status',
     dataStr => {
       const data = JSON.parse(dataStr);
-      console.info(data);
       const index = peripherals.findIndex(
         peripheral => data.uuid === peripheral.uuid
       );
@@ -55,7 +58,7 @@ const Wrapper = () => {
   );
 
   Espressif.deviceNetworkStatus = RNEspressifEvent.addListener(
-    "network-state",
+    'network-state',
     dataStr => {
       const data = JSON.parse(dataStr);
       const index = peripherals.findIndex(
@@ -66,7 +69,7 @@ const Wrapper = () => {
   );
 
   Espressif.devicesStateSub = RNEspressifEvent.addListener(
-    "devices-state",
+    'devices-state',
     dataStr => {
       const data = JSON.parse(dataStr);
 
@@ -80,18 +83,27 @@ const Wrapper = () => {
 };
 
 export const ESPTransportType = {
-  Bluetooth: "bluetooth",
-  Wifi: "wifi"
+  Bluetooth: 'bluetooth',
+  Wifi: 'wifi'
 };
 
 export const ESPSecurityType = {
-  Sec0: "sec0",
-  Sec1: "sec1"
+  Sec0: 'sec0',
+  Sec1: 'sec1'
 };
 
 export const ESPDeviceState = {
-  Configured: "CONFIGURED",
-  SessionEstablished: "SESSION_ESTABLISHED"
+  Configured: 'CONFIGURED',
+  SessionEstablished: 'SESSION_ESTABLISHED',
+  NetworkTest: 'NETWORK_TEST',
+  Disconnected: 'DISCONNECTED'
+};
+
+export const ESPEventState = {
+  DeviceNotFound: 'DEVICES_NOT_FOUND',
+  Unknown: 'UNKNOWN',
+  DevicesFounds: 'DEVICES_FOUND',
+  DeviceUpdated: 'DEVICE_UPDATED'
 };
 
 export default Wrapper;

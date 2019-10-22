@@ -10,7 +10,8 @@ export enum ESPTransportType {
 
 export enum ESPDeviceState {
   Configured = "CONFIGURED",
-  SessionEstablished = "SESSION_ESTABLISHED"
+  SessionEstablished = "SESSION_ESTABLISHED",
+  Disconnected = "DISCONNECTED"
 }
 
 export enum ESPNetworkStatus {

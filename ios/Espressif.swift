@@ -200,11 +200,22 @@ class Espressif: RCTEventEmitter {
 		}
 	}
 	
+	@objc func disconnect(_ uuid: String) {
+		let peripheral = self.peripherals.first {
+			return $0.identifier.uuidString == uuid
+		}
+		
+		if peripheral != nil {
+			self.bleTransport?.disconnect()
+		}
+	}
+	
 	func scanWifi(wifis: [EspressifWifi], index: Int, count: Int, completion: @escaping (_ wifis: [EspressifWifi], _ error: Error?) -> Void) {
 		var resultWifi = WiFiScanPayload()
 		resultWifi.msg = .typeCmdScanResult
 		resultWifi.cmdScanResult.startIndex = UInt32(index)
-		resultWifi.cmdScanResult.count = 4
+		resultWifi.cmdScanResult.count = UInt32(min(count, 4))
+		print("Fetching wifi from \(index) to \(count)")
 		self.provision?.send(to: "prov-scan", data: resultWifi, completionHandler: { (status, response: WiFiScanPayload?, error) in
 			guard error == nil else {
 				completion(wifis, error)
@@ -218,7 +229,7 @@ class Espressif: RCTEventEmitter {
 			
 			if let entries = response?.respScanResult.entries {
 				count -= entries.count
-				index += entries.count - 1
+				index += entries.count
 
 				entries.forEach {
 					let ssid = String(data: $0.ssid, encoding: .isoLatin1)
@@ -257,7 +268,7 @@ class Espressif: RCTEventEmitter {
 		request.cmdScanStart.groupChannels = 0
 		request.cmdScanStart.passive = false
 		request.cmdScanStart.periodMs = 120
-		
+		print("scan wifi")
 		self.provision?.send(to: "prov-scan", data: request, completionHandler: { (status, response: WiFiScanPayload?, error) in
 			guard error == nil else {
 				reject("ERROR", "Error sending device-info : \(error.debugDescription)", error)

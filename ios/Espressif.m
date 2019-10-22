@@ -13,4 +13,5 @@ RCT_EXTERN_METHOD(scanWifi:(NSString*)uuid resolve:(RCTPromiseResolveBlock)resol
 RCT_EXTERN_METHOD(networkTestStatus:(NSString*)uuid resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 RCT_EXTERN_METHOD(getDeviceInfo:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 RCT_EXTERN_METHOD(connectTo:(NSString*)uuid)
+RCT_EXTERN_METHOD(disconnect:(NSString*)uuid)
 @end
