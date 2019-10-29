@@ -209,6 +209,7 @@ class BLETransport: NSObject, Transport {
 		self.delegate = delegate
 		
 		if isBLEEnabled {
+			espressifPeripherals = []
 			_ = Timer.scheduledTimer(timeInterval: scanTimeout,
 															 target: self,
 															 selector: #selector(stopScan(timer:)),
@@ -272,6 +273,10 @@ extension BLETransport: CBCentralManagerDelegate {
 											advertisementData data: [String: Any],
 											rssi _: NSNumber) {
 		if peripheral.name?.contains(deviceNamePrefix ?? "") == true {
+			if espressifPeripherals.contains(peripheral) {
+				return
+			}
+
 			espressifPeripherals.append(peripheral)
 		}
 	}
