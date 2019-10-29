@@ -47,6 +47,7 @@ class Session {
 		transportPrivate = transport
 		securityPrivate = security
 		isSessionEstablished = false
+		securityPrivate.reset()
 	}
 	
 	/// Initialize the session handshake to establish a secure session with the device

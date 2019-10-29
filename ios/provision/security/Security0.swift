@@ -27,6 +27,11 @@ enum Security0SessionState: Int {
 
 class Security0: Security {
     var sessionState: Security0SessionState = .State0
+	
+	func reset() {
+		self.sessionState = .State0
+	}
+	
     func getNextRequestInSession(data: Data?) throws -> Data? {
         var response: Data?
         do {

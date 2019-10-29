@@ -48,6 +48,10 @@ class Security1: Security {
         self.proofOfPossession = proofOfPossession.data(using: .utf8)
         generateKeyPair()
     }
+	
+	func reset() {
+		self.sessionState = .Request1
+	}
 
     func getNextRequestInSession(data: Data?) throws -> Data? {
         var request: Data?

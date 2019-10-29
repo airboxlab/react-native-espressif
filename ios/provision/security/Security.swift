@@ -37,6 +37,7 @@ enum SecurityError: Error {
 /// class / family of devices
 
 protocol Security {
+	func reset()
     /// Get the next request based upon the current Session
     /// state and the response data passed to this function
 
