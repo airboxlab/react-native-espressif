@@ -92,6 +92,15 @@ struct EspressifEvent: Codable {
 	var message: String = ""
 	var peripherals: [EspressifPeripheral] = []
 	
+	enum BluetoothState: String, Codable {
+		case unknown = "UNKNOWN"
+		case resetting = "RESETTING"
+		case unsupported = "UNSUPPORTED"
+		case unauthorized = "UNAUTHORIZED"
+		case poweredOff = "POWERED_OFF"
+		case poweredOn = "POWERED_ON"
+	}
+	
 	enum State: String, Codable {
 		case devicesNotFound = "DEVICES_NOT_FOUND"
 		case unknown = "UNKNOWN"
@@ -141,7 +150,7 @@ class Espressif: RCTEventEmitter {
 	}
 	
 	override func supportedEvents() -> [String]! {
-		return ["devices-state", "log", "device-status", "network-state"]
+		return ["devices-state", "log", "device-status", "network-state", "bluetooth-status"]
 	}
 	
 	@objc func setConfig(_ config: NSDictionary, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
@@ -585,6 +594,14 @@ class Espressif: RCTEventEmitter {
 }
 
 extension Espressif: BLETransportDelegate {
+	func bluetoothStatusChanged(state: EspressifEvent.BluetoothState) {
+		do {
+			self.sendEvent(withName: "bluetooth-status", body: state.rawValue)
+		} catch let e {
+			print("ERROR SEND EVENT \(e.localizedDescription)")
+		}
+	}
+	
 	func peripheralsFound(peripherals: [CBPeripheral]) {
 		self.peripherals = peripherals
 		self.sendEvent(to: "devices-state", EspressifEvent(state: .devicesFound, message: "FOUND", peripherals: peripherals.map {

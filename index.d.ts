@@ -21,6 +21,15 @@ export enum ESPNetworkStatus {
   Nok = "NOK"
 }
 
+export enum ESPBluetoothState {
+  Unknown = 'UNKNOWN',
+  Resetting = 'RESETTING',
+  Unsupported = 'UNSUPPORTED',
+  Unauthorized = 'UNAUTHORIZED',
+  PoweredOff = 'POWERED_OFF',
+  PoweredOn = 'POWERED_ON'
+};
+
 interface NetworkComponentStatus {
   ip: boolean;
   internet: boolean;

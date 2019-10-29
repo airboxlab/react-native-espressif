@@ -36,6 +36,8 @@ const setCallback = device => {
 const Wrapper = () => {
   const RNEspressifEvent = new NativeEventEmitter(Espressif);
 
+  if (Espressif.bluetoothStatusSub) Espressif.bluetoothStatusSub.remove();
+
   if (Espressif.deviceStatus) Espressif.deviceStatus.remove();
 
   if (Espressif.deviceNetworkStatus) Espressif.deviceNetworkStatus.remove();
@@ -43,6 +45,16 @@ const Wrapper = () => {
   if (Espressif.devicesStateSub) {
     Espressif.devicesStateSub.remove();
   }
+
+  Espressif.bluetoothStatusSub = RNEspressifEvent.addListener(
+    'bluetooth-status',
+    status => {
+      console.info('bluetooth', { status });
+      Espressif.bluetoothStatus = status;
+      if (Espressif.OnBluetoothStatusChanged)
+        Espressif.OnBluetoothStatusChanged(status);
+    }
+  );
 
   Espressif.deviceStatus = RNEspressifEvent.addListener(
     'device-status',
@@ -104,6 +116,15 @@ export const ESPEventState = {
   Unknown: 'UNKNOWN',
   DevicesFounds: 'DEVICES_FOUND',
   DeviceUpdated: 'DEVICE_UPDATED'
+};
+
+export const ESPBluetoothState = {
+  Unknown: 'UNKNOWN',
+  Resetting: 'RESETTING',
+  Unsupported: 'UNSUPPORTED',
+  Unauthorized: 'UNAUTHORIZED',
+  PoweredOff: 'POWERED_OFF',
+  PoweredOn: 'POWERED_ON'
 };
 
 export default Wrapper;

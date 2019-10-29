@@ -236,25 +236,35 @@ class BLETransport: NSObject, Transport {
 
 extension BLETransport: CBCentralManagerDelegate {
 	func centralManagerDidUpdateState(_ central: CBCentralManager) {
+		var espressifState: EspressifEvent.BluetoothState = .unknown
+		
 		switch central.state {
 		case .unknown:
 			print("Bluetooth state unknown")
+			espressifState = .unknown
 		case .resetting:
 			print("Bluetooth state resetting")
+			espressifState = .resetting
 		case .unsupported:
 			print("Bluetooth state unsupported")
+			espressifState = .unsupported
 		case .unauthorized:
 			print("Bluetooth state unauthorized")
+			espressifState = .unauthorized
 		case .poweredOff:
 			if let currentPeripheral = currentPeripheral {
 				delegate?.peripheralDisconnected(peripheral: currentPeripheral, error: nil)
 			}
 			print("Bluetooth state off")
+			espressifState = .poweredOff
 		case .poweredOn:
 			print("Bluetooth state on")
 			isBLEEnabled = true
+			espressifState = .poweredOn
 		@unknown default: break
 		}
+		
+		self.delegate?.bluetoothStatusChanged(state: espressifState)
 	}
 	
 	func centralManager(_: CBCentralManager,
@@ -389,4 +399,6 @@ protocol BLETransportDelegate {
 	///   - peripheral: peripheral device
 	///   - error: error
 	func peripheralDisconnected(peripheral: CBPeripheral, error: Error?)
+	
+	func bluetoothStatusChanged(state: EspressifEvent.BluetoothState)
 }
