@@ -191,8 +191,8 @@ class BLETransport: NSObject, Transport {
 			centralManager.cancelPeripheralConnection(currentPeripheral)
 		}
 		currentPeripheral = peripheral
-		centralManager.connect(currentPeripheral!, options: options)
 		currentPeripheral?.delegate = self
+		centralManager.connect(currentPeripheral!, options: options)
 	}
 	
 	/// Disconnect from the current connected peripheral
@@ -219,6 +219,8 @@ class BLETransport: NSObject, Transport {
 			if let serviceUUID = self.serviceUUID {
 				uuids = [CBUUID(string: serviceUUID.uuidString)]
 			}
+			
+			
 			centralManager.scanForPeripherals(withServices: nil)
 		}
 	}
@@ -272,7 +274,7 @@ extension BLETransport: CBCentralManagerDelegate {
 											didDiscover peripheral: CBPeripheral,
 											advertisementData data: [String: Any],
 											rssi _: NSNumber) {
-		if peripheral.name?.contains(deviceNamePrefix ?? "") == true {
+		if peripheral.name?.contains(deviceNamePrefix ?? "") == true && data[CBAdvertisementDataServiceUUIDsKey] != nil {
 			if espressifPeripherals.contains(peripheral) {
 				return
 			}
