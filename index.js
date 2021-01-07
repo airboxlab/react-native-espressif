@@ -110,6 +110,13 @@ export const ESPDeviceState = {
   Disconnected: "DISCONNECTED",
 };
 
+export const ESPNetworkStatus = {
+  NotStarted: "NOT_STARTED",
+  InProgress: "IN_PROGRESS",
+  Ok: "OK",
+  Nok: "NOK",
+};
+
 export const ESPEventState = {
   DeviceNotFound: "DEVICES_NOT_FOUND",
   Unknown: "UNKNOWN",
