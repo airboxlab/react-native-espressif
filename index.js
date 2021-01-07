@@ -1,11 +1,8 @@
-import { NativeModules, NativeEventEmitter } from 'react-native';
-import PropTypes from 'prop-types';
+import { NativeModules, NativeEventEmitter } from "react-native";
 
 const { Espressif } = NativeModules;
 
-let peripherals = [];
-
-const setCallback = device => {
+const setCallback = (device) => {
   device.startSession = async () => {
     return await Espressif.startSession(device.uuid);
   };
@@ -34,6 +31,8 @@ const setCallback = device => {
 };
 
 const Wrapper = () => {
+  let peripherals = [];
+
   const RNEspressifEvent = new NativeEventEmitter(Espressif);
 
   if (Espressif.bluetoothStatusSub) Espressif.bluetoothStatusSub.remove();
@@ -47,9 +46,9 @@ const Wrapper = () => {
   }
 
   Espressif.bluetoothStatusSub = RNEspressifEvent.addListener(
-    'bluetooth-status',
-    status => {
-      console.info('bluetooth', { status });
+    "bluetooth-status",
+    (status) => {
+      console.info("bluetooth", { status });
       Espressif.bluetoothStatus = status;
       if (Espressif.OnBluetoothStatusChanged)
         Espressif.OnBluetoothStatusChanged(status);
@@ -57,36 +56,36 @@ const Wrapper = () => {
   );
 
   Espressif.deviceStatus = RNEspressifEvent.addListener(
-    'device-status',
-    dataStr => {
+    "device-status",
+    (dataStr) => {
       const data = JSON.parse(dataStr);
       const index = peripherals.findIndex(
-        peripheral => data.uuid === peripheral.uuid
+        (peripheral) => data.uuid === peripheral.uuid
       );
 
-      peripherals[index] = { ...peripherals[index], ...data };
+      Object.assign(peripherals[index], data);
       peripherals[index].onStatusChanged(peripherals[index]);
     }
   );
 
   Espressif.deviceNetworkStatus = RNEspressifEvent.addListener(
-    'network-state',
-    dataStr => {
+    "network-state",
+    (dataStr) => {
       const data = JSON.parse(dataStr);
       const index = peripherals.findIndex(
-        peripheral => data.uuid === peripheral.uuid
+        (peripheral) => data.uuid === peripheral.uuid
       );
       peripherals[index].onNetworkStatusChanged(data.status, data.components);
     }
   );
 
   Espressif.devicesStateSub = RNEspressifEvent.addListener(
-    'devices-state',
-    dataStr => {
+    "devices-state",
+    (dataStr) => {
       const data = JSON.parse(dataStr);
 
       peripherals = data.peripherals;
-      peripherals.forEach(peripheral => setCallback(peripheral));
+      peripherals.forEach((peripheral) => setCallback(peripheral));
       Espressif.OnStateChanged(data.state, peripherals);
     }
   );
@@ -95,36 +94,36 @@ const Wrapper = () => {
 };
 
 export const ESPTransportType = {
-  Bluetooth: 'bluetooth',
-  Wifi: 'wifi'
+  Bluetooth: "bluetooth",
+  Wifi: "wifi",
 };
 
 export const ESPSecurityType = {
-  Sec0: 'sec0',
-  Sec1: 'sec1'
+  Sec0: "sec0",
+  Sec1: "sec1",
 };
 
 export const ESPDeviceState = {
-  Configured: 'CONFIGURED',
-  SessionEstablished: 'SESSION_ESTABLISHED',
-  NetworkTest: 'NETWORK_TEST',
-  Disconnected: 'DISCONNECTED'
+  Configured: "CONFIGURED",
+  SessionEstablished: "SESSION_ESTABLISHED",
+  NetworkTest: "NETWORK_TEST",
+  Disconnected: "DISCONNECTED",
 };
 
 export const ESPEventState = {
-  DeviceNotFound: 'DEVICES_NOT_FOUND',
-  Unknown: 'UNKNOWN',
-  DevicesFounds: 'DEVICES_FOUND',
-  DeviceUpdated: 'DEVICE_UPDATED'
+  DeviceNotFound: "DEVICES_NOT_FOUND",
+  Unknown: "UNKNOWN",
+  DevicesFounds: "DEVICES_FOUND",
+  DeviceUpdated: "DEVICE_UPDATED",
 };
 
 export const ESPBluetoothState = {
-  Unknown: 'UNKNOWN',
-  Resetting: 'RESETTING',
-  Unsupported: 'UNSUPPORTED',
-  Unauthorized: 'UNAUTHORIZED',
-  PoweredOff: 'POWERED_OFF',
-  PoweredOn: 'POWERED_ON'
+  Unknown: "UNKNOWN",
+  Resetting: "RESETTING",
+  Unsupported: "UNSUPPORTED",
+  Unauthorized: "UNAUTHORIZED",
+  PoweredOff: "POWERED_OFF",
+  PoweredOn: "POWERED_ON",
 };
 
 export default Wrapper;
