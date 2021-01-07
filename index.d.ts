@@ -10,6 +10,7 @@ export enum ESPTransportType {
 
 export enum ESPDeviceState {
   Configured = "CONFIGURED",
+  NotConfigured = "NOT_CONFIGURED",
   SessionEstablished = "SESSION_ESTABLISHED",
   Disconnected = "DISCONNECTED"
 }
@@ -52,7 +53,10 @@ interface Device {
   onStatusChanged: (device: Device) => void;
   startSession();
   connect();
+  disconnect();
   setCredentials(ssid: string, passphrase: string);
+  networkTest();
+  scanWifi();
 }
 
 export enum ESPEventState {
