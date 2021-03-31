@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package espressif;
+
+message DeviceInfoRequest {
+    int32 protocol_version = 1;
+}
+
+message DeviceInfoResponse {
+    string UUID = 1;
+    string MAC_WiFi = 2;
+    string MAC_Ethernet = 3;
+    string FW_Version = 4;
+    string Device_compatibility = 5;
+    int32 environment = 6;
+}
+
+enum NetworkTestStatus {
+    TEST_NOT_STARTED = 0;
+    TEST_IN_PROGRESS = 1;
+    TEST_OK = 2;
+    TEST_NOK = 3;
+}
+
+message NetworkTestStatusRequest {
+	int32 protocol_version = 1;
+}
+
+message NetworkTestStatusResponse {
+	NetworkTestStatus status_test_ip = 2;
+	NetworkTestStatus status_test_internet = 3;
+	NetworkTestStatus status_test_cloud = 4;
+	string message = 5;
+}

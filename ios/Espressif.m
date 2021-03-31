@@ -1,6 +1,6 @@
-#import "React/RCTBridgeModule.h"
-#import "React/RCTEventEmitter.h"
-#import "React/RCTViewManager.h"
+#import <React/RCTBridgeModule.h>
+#import <React/RCTEventEmitter.h>
+#import <React/RCTViewManager.h>
 
 @interface RCT_EXTERN_MODULE(Espressif, RCTEventEmitter)
 RCT_EXTERN_METHOD(setConfig:(NSDictionary*)config resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)

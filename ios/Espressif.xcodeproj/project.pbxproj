@@ -7,30 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2E0F908223267FE8001BC43C /* Espressif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F908123267FE8001BC43C /* Espressif.swift */; };
-		2E0F909C23268611001BC43C /* sec1.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F909623268611001BC43C /* sec1.pb.swift */; };
-		2E0F909D23268611001BC43C /* sec0.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F909723268611001BC43C /* sec0.pb.swift */; };
-		2E0F909E23268611001BC43C /* wifi_config.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F909823268611001BC43C /* wifi_config.pb.swift */; };
-		2E0F909F23268611001BC43C /* wifi_constants.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F909923268611001BC43C /* wifi_constants.pb.swift */; };
-		2E0F90A023268611001BC43C /* constants.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F909A23268611001BC43C /* constants.pb.swift */; };
-		2E0F90A123268611001BC43C /* session.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F909B23268611001BC43C /* session.pb.swift */; };
-		2E0F90A82326861A001BC43C /* AESDecryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F90A22326861A001BC43C /* AESDecryptor.m */; };
-		2E0F90A92326861A001BC43C /* DataExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F90A32326861A001BC43C /* DataExtensions.swift */; };
-		2E0F90AA2326861A001BC43C /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F90A42326861A001BC43C /* StringExtensions.swift */; };
-		2E0F90AB2326861A001BC43C /* CryptoAES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F90A52326861A001BC43C /* CryptoAES.swift */; };
-		2E0F90AC2326861A001BC43C /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F90A62326861A001BC43C /* ArrayExtensions.swift */; };
-		2E0F90B023268623001BC43C /* Transport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F90AD23268623001BC43C /* Transport.swift */; };
-		2E0F90B123268623001BC43C /* BLETransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F90AE23268623001BC43C /* BLETransport.swift */; };
-		2E0F90B223268623001BC43C /* SoftAPTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F90AF23268623001BC43C /* SoftAPTransport.swift */; };
-		2E0F90B42326862A001BC43C /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F90B32326862A001BC43C /* Session.swift */; };
-		2E0F90B823268630001BC43C /* Security.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F90B523268630001BC43C /* Security.swift */; };
-		2E0F90B923268630001BC43C /* Security1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F90B623268630001BC43C /* Security1.swift */; };
-		2E0F90BA23268630001BC43C /* Security0.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F90B723268630001BC43C /* Security0.swift */; };
-		2E0F90BD23268662001BC43C /* HexUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F90BC23268662001BC43C /* HexUtils.swift */; };
-		2E0F90D923279837001BC43C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F90D823279837001BC43C /* Config.swift */; };
-		2ED3B183234E2E27005BD828 /* wifi_scan.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED3B182234E2E27005BD828 /* wifi_scan.pb.swift */; };
-		2EFA388B234B69F70090E64F /* device_info.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFA388A234B69F70090E64F /* device_info.pb.swift */; };
-		B3E7B58A1CC2AC0600A0062D /* Espressif.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* Espressif.m */; };
+		2E07BC2D260A2D840092D4C2 /* wifi_scan.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E07BC20260A2D840092D4C2 /* wifi_scan.pb.swift */; };
+		2E07BC2E260A2D840092D4C2 /* wifi_constants.proto in Sources */ = {isa = PBXBuildFile; fileRef = 2E07BC21260A2D840092D4C2 /* wifi_constants.proto */; };
+		2E07BC2F260A2D840092D4C2 /* device_info.proto in Sources */ = {isa = PBXBuildFile; fileRef = 2E07BC22260A2D840092D4C2 /* device_info.proto */; };
+		2E07BC30260A2D840092D4C2 /* wifi_scan.proto in Sources */ = {isa = PBXBuildFile; fileRef = 2E07BC23260A2D840092D4C2 /* wifi_scan.proto */; };
+		2E07BC31260A2D840092D4C2 /* wifi_config.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E07BC24260A2D840092D4C2 /* wifi_config.pb.swift */; };
+		2E07BC32260A2D840092D4C2 /* device_info.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E07BC25260A2D840092D4C2 /* device_info.pb.swift */; };
+		2E07BC33260A2D840092D4C2 /* wifi_constants.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E07BC26260A2D840092D4C2 /* wifi_constants.pb.swift */; };
+		2E07BC34260A2D840092D4C2 /* constants.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E07BC27260A2D840092D4C2 /* constants.pb.swift */; };
+		2E07BC35260A2D840092D4C2 /* sec0.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E07BC29260A2D840092D4C2 /* sec0.pb.swift */; };
+		2E07BC36260A2D840092D4C2 /* constants.proto in Sources */ = {isa = PBXBuildFile; fileRef = 2E07BC2A260A2D840092D4C2 /* constants.proto */; };
+		2E07BC37260A2D840092D4C2 /* session.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E07BC2B260A2D840092D4C2 /* session.pb.swift */; };
+		2E07BC38260A2D840092D4C2 /* sec1.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E07BC2C260A2D840092D4C2 /* sec1.pb.swift */; };
+		2E07BC4F260A2D910092D4C2 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E07BC3C260A2D910092D4C2 /* ArrayExtensions.swift */; };
+		2E07BC50260A2D910092D4C2 /* AESDecryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E07BC3D260A2D910092D4C2 /* AESDecryptor.m */; };
+		2E07BC51260A2D910092D4C2 /* CryptoAES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E07BC3E260A2D910092D4C2 /* CryptoAES.swift */; };
+		2E07BC52260A2D910092D4C2 /* DataExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E07BC3F260A2D910092D4C2 /* DataExtensions.swift */; };
+		2E07BC53260A2D910092D4C2 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E07BC40260A2D910092D4C2 /* StringExtensions.swift */; };
+		2E07BC54260A2D910092D4C2 /* Provision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E07BC42260A2D910092D4C2 /* Provision.swift */; };
+		2E07BC55260A2D910092D4C2 /* Security.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E07BC44260A2D910092D4C2 /* Security.swift */; };
+		2E07BC56260A2D910092D4C2 /* Security0.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E07BC45260A2D910092D4C2 /* Security0.swift */; };
+		2E07BC57260A2D910092D4C2 /* Security1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E07BC46260A2D910092D4C2 /* Security1.swift */; };
+		2E07BC58260A2D910092D4C2 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E07BC48260A2D910092D4C2 /* Session.swift */; };
+		2E07BC59260A2D910092D4C2 /* Transport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E07BC4A260A2D910092D4C2 /* Transport.swift */; };
+		2E07BC5A260A2D910092D4C2 /* SoftAPTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E07BC4B260A2D910092D4C2 /* SoftAPTransport.swift */; };
+		2E07BC5B260A2D910092D4C2 /* BLETransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E07BC4C260A2D910092D4C2 /* BLETransport.swift */; };
+		2E07BC5C260A2D910092D4C2 /* HexUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E07BC4E260A2D910092D4C2 /* HexUtils.swift */; };
+		59C65E5A4A5579D322712083 /* Pods_Espressif.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBE0D26A72661BE427AECF29 /* Pods_Espressif.framework */; };
+		F4FF95D7245B92E800C19C63 /* Espressif.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FF95D6245B92E800C19C63 /* Espressif.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -47,32 +51,40 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libEspressif.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libEspressif.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		2E0F8FF02326535D001BC43C /* Espressif-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Espressif-Bridging-Header.h"; sourceTree = "<group>"; };
-		2E0F908123267FE8001BC43C /* Espressif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Espressif.swift; sourceTree = "<group>"; };
-		2E0F909623268611001BC43C /* sec1.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sec1.pb.swift; sourceTree = "<group>"; };
-		2E0F909723268611001BC43C /* sec0.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sec0.pb.swift; sourceTree = "<group>"; };
-		2E0F909823268611001BC43C /* wifi_config.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = wifi_config.pb.swift; sourceTree = "<group>"; };
-		2E0F909923268611001BC43C /* wifi_constants.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = wifi_constants.pb.swift; sourceTree = "<group>"; };
-		2E0F909A23268611001BC43C /* constants.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = constants.pb.swift; sourceTree = "<group>"; };
-		2E0F909B23268611001BC43C /* session.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = session.pb.swift; sourceTree = "<group>"; };
-		2E0F90A22326861A001BC43C /* AESDecryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AESDecryptor.m; sourceTree = "<group>"; };
-		2E0F90A32326861A001BC43C /* DataExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataExtensions.swift; sourceTree = "<group>"; };
-		2E0F90A42326861A001BC43C /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
-		2E0F90A52326861A001BC43C /* CryptoAES.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CryptoAES.swift; sourceTree = "<group>"; };
-		2E0F90A62326861A001BC43C /* ArrayExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
-		2E0F90A72326861A001BC43C /* AESDecryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AESDecryptor.h; sourceTree = "<group>"; };
-		2E0F90AD23268623001BC43C /* Transport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transport.swift; sourceTree = "<group>"; };
-		2E0F90AE23268623001BC43C /* BLETransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BLETransport.swift; sourceTree = "<group>"; };
-		2E0F90AF23268623001BC43C /* SoftAPTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoftAPTransport.swift; sourceTree = "<group>"; };
-		2E0F90B32326862A001BC43C /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
-		2E0F90B523268630001BC43C /* Security.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Security.swift; sourceTree = "<group>"; };
-		2E0F90B623268630001BC43C /* Security1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Security1.swift; sourceTree = "<group>"; };
-		2E0F90B723268630001BC43C /* Security0.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Security0.swift; sourceTree = "<group>"; };
-		2E0F90BC23268662001BC43C /* HexUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HexUtils.swift; sourceTree = "<group>"; };
-		2E0F90D823279837001BC43C /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
-		2ED3B182234E2E27005BD828 /* wifi_scan.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = wifi_scan.pb.swift; sourceTree = "<group>"; };
-		2EFA388A234B69F70090E64F /* device_info.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = device_info.pb.swift; sourceTree = "<group>"; };
+		2E07BC20260A2D840092D4C2 /* wifi_scan.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = wifi_scan.pb.swift; sourceTree = "<group>"; };
+		2E07BC21260A2D840092D4C2 /* wifi_constants.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.protobuf; path = wifi_constants.proto; sourceTree = "<group>"; };
+		2E07BC22260A2D840092D4C2 /* device_info.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.protobuf; path = device_info.proto; sourceTree = "<group>"; };
+		2E07BC23260A2D840092D4C2 /* wifi_scan.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.protobuf; path = wifi_scan.proto; sourceTree = "<group>"; };
+		2E07BC24260A2D840092D4C2 /* wifi_config.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = wifi_config.pb.swift; sourceTree = "<group>"; };
+		2E07BC25260A2D840092D4C2 /* device_info.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = device_info.pb.swift; sourceTree = "<group>"; };
+		2E07BC26260A2D840092D4C2 /* wifi_constants.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = wifi_constants.pb.swift; sourceTree = "<group>"; };
+		2E07BC27260A2D840092D4C2 /* constants.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = constants.pb.swift; sourceTree = "<group>"; };
+		2E07BC28260A2D840092D4C2 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		2E07BC29260A2D840092D4C2 /* sec0.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sec0.pb.swift; sourceTree = "<group>"; };
+		2E07BC2A260A2D840092D4C2 /* constants.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.protobuf; path = constants.proto; sourceTree = "<group>"; };
+		2E07BC2B260A2D840092D4C2 /* session.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = session.pb.swift; sourceTree = "<group>"; };
+		2E07BC2C260A2D840092D4C2 /* sec1.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sec1.pb.swift; sourceTree = "<group>"; };
+		2E07BC3C260A2D910092D4C2 /* ArrayExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
+		2E07BC3D260A2D910092D4C2 /* AESDecryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AESDecryptor.m; sourceTree = "<group>"; };
+		2E07BC3E260A2D910092D4C2 /* CryptoAES.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CryptoAES.swift; sourceTree = "<group>"; };
+		2E07BC3F260A2D910092D4C2 /* DataExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataExtensions.swift; sourceTree = "<group>"; };
+		2E07BC40260A2D910092D4C2 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
+		2E07BC41260A2D910092D4C2 /* AESDecryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AESDecryptor.h; sourceTree = "<group>"; };
+		2E07BC42260A2D910092D4C2 /* Provision.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Provision.swift; sourceTree = "<group>"; };
+		2E07BC44260A2D910092D4C2 /* Security.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Security.swift; sourceTree = "<group>"; };
+		2E07BC45260A2D910092D4C2 /* Security0.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Security0.swift; sourceTree = "<group>"; };
+		2E07BC46260A2D910092D4C2 /* Security1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Security1.swift; sourceTree = "<group>"; };
+		2E07BC48260A2D910092D4C2 /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		2E07BC4A260A2D910092D4C2 /* Transport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transport.swift; sourceTree = "<group>"; };
+		2E07BC4B260A2D910092D4C2 /* SoftAPTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoftAPTransport.swift; sourceTree = "<group>"; };
+		2E07BC4C260A2D910092D4C2 /* BLETransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BLETransport.swift; sourceTree = "<group>"; };
+		2E07BC4E260A2D910092D4C2 /* HexUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HexUtils.swift; sourceTree = "<group>"; };
+		ADD427C602E826298CF75F82 /* Pods-Espressif.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Espressif.release.xcconfig"; path = "Target Support Files/Pods-Espressif/Pods-Espressif.release.xcconfig"; sourceTree = "<group>"; };
 		B3E7B5891CC2AC0600A0062D /* Espressif.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Espressif.m; sourceTree = "<group>"; };
+		BFD8908614B11447D97A38F0 /* Pods-Espressif.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Espressif.debug.xcconfig"; path = "Target Support Files/Pods-Espressif/Pods-Espressif.debug.xcconfig"; sourceTree = "<group>"; };
+		F4FF95D5245B92E700C19C63 /* Espressif-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Espressif-Bridging-Header.h"; sourceTree = "<group>"; };
+		F4FF95D6245B92E800C19C63 /* Espressif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Espressif.swift; sourceTree = "<group>"; };
+		FBE0D26A72661BE427AECF29 /* Pods_Espressif.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Espressif.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59C65E5A4A5579D322712083 /* Pods_Espressif.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,78 +107,92 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2E0F909023268578001BC43C /* proto */ = {
+		204A52258795C6F2310F1E7A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2ED3B182234E2E27005BD828 /* wifi_scan.pb.swift */,
-				2EFA388A234B69F70090E64F /* device_info.pb.swift */,
-				2E0F909A23268611001BC43C /* constants.pb.swift */,
-				2E0F909723268611001BC43C /* sec0.pb.swift */,
-				2E0F909623268611001BC43C /* sec1.pb.swift */,
-				2E0F909B23268611001BC43C /* session.pb.swift */,
-				2E0F909823268611001BC43C /* wifi_config.pb.swift */,
-				2E0F909923268611001BC43C /* wifi_constants.pb.swift */,
+				FBE0D26A72661BE427AECF29 /* Pods_Espressif.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2E07BC16260A2D260092D4C2 /* proto */ = {
+			isa = PBXGroup;
+			children = (
+				2E07BC27260A2D840092D4C2 /* constants.pb.swift */,
+				2E07BC2A260A2D840092D4C2 /* constants.proto */,
+				2E07BC25260A2D840092D4C2 /* device_info.pb.swift */,
+				2E07BC22260A2D840092D4C2 /* device_info.proto */,
+				2E07BC28260A2D840092D4C2 /* README.md */,
+				2E07BC29260A2D840092D4C2 /* sec0.pb.swift */,
+				2E07BC2C260A2D840092D4C2 /* sec1.pb.swift */,
+				2E07BC2B260A2D840092D4C2 /* session.pb.swift */,
+				2E07BC24260A2D840092D4C2 /* wifi_config.pb.swift */,
+				2E07BC26260A2D840092D4C2 /* wifi_constants.pb.swift */,
+				2E07BC21260A2D840092D4C2 /* wifi_constants.proto */,
+				2E07BC20260A2D840092D4C2 /* wifi_scan.pb.swift */,
+				2E07BC23260A2D840092D4C2 /* wifi_scan.proto */,
 			);
 			path = proto;
 			sourceTree = "<group>";
 		};
-		2E0F909123268588001BC43C /* provision */ = {
+		2E07BC17260A2D2D0092D4C2 /* provision */ = {
 			isa = PBXGroup;
 			children = (
-				2E0F90BB23268637001BC43C /* utils */,
-				2E0F9095232685A1001BC43C /* security */,
-				2E0F90942326859B001BC43C /* session */,
-				2E0F909323268595001BC43C /* transport */,
-				2E0F90922326858F001BC43C /* crypto */,
+				2E07BC3B260A2D910092D4C2 /* crypto */,
+				2E07BC42260A2D910092D4C2 /* Provision.swift */,
+				2E07BC43260A2D910092D4C2 /* security */,
+				2E07BC47260A2D910092D4C2 /* session */,
+				2E07BC49260A2D910092D4C2 /* transport */,
+				2E07BC4D260A2D910092D4C2 /* utils */,
 			);
 			path = provision;
 			sourceTree = "<group>";
 		};
-		2E0F90922326858F001BC43C /* crypto */ = {
+		2E07BC3B260A2D910092D4C2 /* crypto */ = {
 			isa = PBXGroup;
 			children = (
-				2E0F90A72326861A001BC43C /* AESDecryptor.h */,
-				2E0F90A22326861A001BC43C /* AESDecryptor.m */,
-				2E0F90A62326861A001BC43C /* ArrayExtensions.swift */,
-				2E0F90A52326861A001BC43C /* CryptoAES.swift */,
-				2E0F90A32326861A001BC43C /* DataExtensions.swift */,
-				2E0F90A42326861A001BC43C /* StringExtensions.swift */,
+				2E07BC3C260A2D910092D4C2 /* ArrayExtensions.swift */,
+				2E07BC3D260A2D910092D4C2 /* AESDecryptor.m */,
+				2E07BC3E260A2D910092D4C2 /* CryptoAES.swift */,
+				2E07BC3F260A2D910092D4C2 /* DataExtensions.swift */,
+				2E07BC40260A2D910092D4C2 /* StringExtensions.swift */,
+				2E07BC41260A2D910092D4C2 /* AESDecryptor.h */,
 			);
 			path = crypto;
 			sourceTree = "<group>";
 		};
-		2E0F909323268595001BC43C /* transport */ = {
+		2E07BC43260A2D910092D4C2 /* security */ = {
 			isa = PBXGroup;
 			children = (
-				2E0F90AE23268623001BC43C /* BLETransport.swift */,
-				2E0F90AF23268623001BC43C /* SoftAPTransport.swift */,
-				2E0F90AD23268623001BC43C /* Transport.swift */,
-			);
-			path = transport;
-			sourceTree = "<group>";
-		};
-		2E0F90942326859B001BC43C /* session */ = {
-			isa = PBXGroup;
-			children = (
-				2E0F90B32326862A001BC43C /* Session.swift */,
-			);
-			path = session;
-			sourceTree = "<group>";
-		};
-		2E0F9095232685A1001BC43C /* security */ = {
-			isa = PBXGroup;
-			children = (
-				2E0F90B523268630001BC43C /* Security.swift */,
-				2E0F90B723268630001BC43C /* Security0.swift */,
-				2E0F90B623268630001BC43C /* Security1.swift */,
+				2E07BC44260A2D910092D4C2 /* Security.swift */,
+				2E07BC45260A2D910092D4C2 /* Security0.swift */,
+				2E07BC46260A2D910092D4C2 /* Security1.swift */,
 			);
 			path = security;
 			sourceTree = "<group>";
 		};
-		2E0F90BB23268637001BC43C /* utils */ = {
+		2E07BC47260A2D910092D4C2 /* session */ = {
 			isa = PBXGroup;
 			children = (
-				2E0F90BC23268662001BC43C /* HexUtils.swift */,
+				2E07BC48260A2D910092D4C2 /* Session.swift */,
+			);
+			path = session;
+			sourceTree = "<group>";
+		};
+		2E07BC49260A2D910092D4C2 /* transport */ = {
+			isa = PBXGroup;
+			children = (
+				2E07BC4A260A2D910092D4C2 /* Transport.swift */,
+				2E07BC4B260A2D910092D4C2 /* SoftAPTransport.swift */,
+				2E07BC4C260A2D910092D4C2 /* BLETransport.swift */,
+			);
+			path = transport;
+			sourceTree = "<group>";
+		};
+		2E07BC4D260A2D910092D4C2 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				2E07BC4E260A2D910092D4C2 /* HexUtils.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -173,14 +200,24 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
-				2E0F90D823279837001BC43C /* Config.swift */,
-				2E0F909123268588001BC43C /* provision */,
-				2E0F909023268578001BC43C /* proto */,
-				2E0F908123267FE8001BC43C /* Espressif.swift */,
+				2E07BC17260A2D2D0092D4C2 /* provision */,
+				2E07BC16260A2D260092D4C2 /* proto */,
+				F4FF95D6245B92E800C19C63 /* Espressif.swift */,
 				B3E7B5891CC2AC0600A0062D /* Espressif.m */,
+				F4FF95D5245B92E700C19C63 /* Espressif-Bridging-Header.h */,
 				134814211AA4EA7D00B7C361 /* Products */,
-				2E0F8FF02326535D001BC43C /* Espressif-Bridging-Header.h */,
+				E7FB4BF553E9B825BD5652D7 /* Pods */,
+				204A52258795C6F2310F1E7A /* Frameworks */,
 			);
+			sourceTree = "<group>";
+		};
+		E7FB4BF553E9B825BD5652D7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BFD8908614B11447D97A38F0 /* Pods-Espressif.debug.xcconfig */,
+				ADD427C602E826298CF75F82 /* Pods-Espressif.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -190,6 +227,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 58B511EF1A9E6C8500147676 /* Build configuration list for PBXNativeTarget "Espressif" */;
 			buildPhases = (
+				D92789B324F39FA2AC992D19 /* [CP] Check Pods Manifest.lock */,
 				58B511D71A9E6C8500147676 /* Sources */,
 				58B511D81A9E6C8500147676 /* Frameworks */,
 				58B511D91A9E6C8500147676 /* CopyFiles */,
@@ -214,7 +252,6 @@
 				TargetAttributes = {
 					58B511DA1A9E6C8500147676 = {
 						CreatedOnToolsVersion = 6.1.1;
-						LastSwiftMigration = 1030;
 					};
 				};
 			};
@@ -236,35 +273,63 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		D92789B324F39FA2AC992D19 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Espressif-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		58B511D71A9E6C8500147676 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2E0F90AC2326861A001BC43C /* ArrayExtensions.swift in Sources */,
-				2E0F90B42326862A001BC43C /* Session.swift in Sources */,
-				2E0F90BD23268662001BC43C /* HexUtils.swift in Sources */,
-				2E0F90B023268623001BC43C /* Transport.swift in Sources */,
-				2E0F90A82326861A001BC43C /* AESDecryptor.m in Sources */,
-				2E0F909E23268611001BC43C /* wifi_config.pb.swift in Sources */,
-				2E0F90B823268630001BC43C /* Security.swift in Sources */,
-				2E0F90A023268611001BC43C /* constants.pb.swift in Sources */,
-				2E0F90A92326861A001BC43C /* DataExtensions.swift in Sources */,
-				2E0F909F23268611001BC43C /* wifi_constants.pb.swift in Sources */,
-				2E0F908223267FE8001BC43C /* Espressif.swift in Sources */,
-				2E0F90BA23268630001BC43C /* Security0.swift in Sources */,
-				2E0F90AA2326861A001BC43C /* StringExtensions.swift in Sources */,
-				B3E7B58A1CC2AC0600A0062D /* Espressif.m in Sources */,
-				2E0F90B223268623001BC43C /* SoftAPTransport.swift in Sources */,
-				2E0F90D923279837001BC43C /* Config.swift in Sources */,
-				2ED3B183234E2E27005BD828 /* wifi_scan.pb.swift in Sources */,
-				2E0F90AB2326861A001BC43C /* CryptoAES.swift in Sources */,
-				2E0F909C23268611001BC43C /* sec1.pb.swift in Sources */,
-				2E0F90B123268623001BC43C /* BLETransport.swift in Sources */,
-				2EFA388B234B69F70090E64F /* device_info.pb.swift in Sources */,
-				2E0F909D23268611001BC43C /* sec0.pb.swift in Sources */,
-				2E0F90A123268611001BC43C /* session.pb.swift in Sources */,
-				2E0F90B923268630001BC43C /* Security1.swift in Sources */,
+				2E07BC50260A2D910092D4C2 /* AESDecryptor.m in Sources */,
+				2E07BC30260A2D840092D4C2 /* wifi_scan.proto in Sources */,
+				F4FF95D7245B92E800C19C63 /* Espressif.swift in Sources */,
+				2E07BC36260A2D840092D4C2 /* constants.proto in Sources */,
+				2E07BC51260A2D910092D4C2 /* CryptoAES.swift in Sources */,
+				2E07BC56260A2D910092D4C2 /* Security0.swift in Sources */,
+				2E07BC35260A2D840092D4C2 /* sec0.pb.swift in Sources */,
+				2E07BC59260A2D910092D4C2 /* Transport.swift in Sources */,
+				2E07BC5A260A2D910092D4C2 /* SoftAPTransport.swift in Sources */,
+				2E07BC38260A2D840092D4C2 /* sec1.pb.swift in Sources */,
+				2E07BC32260A2D840092D4C2 /* device_info.pb.swift in Sources */,
+				2E07BC2E260A2D840092D4C2 /* wifi_constants.proto in Sources */,
+				2E07BC33260A2D840092D4C2 /* wifi_constants.pb.swift in Sources */,
+				2E07BC5B260A2D910092D4C2 /* BLETransport.swift in Sources */,
+				2E07BC52260A2D910092D4C2 /* DataExtensions.swift in Sources */,
+				2E07BC37260A2D840092D4C2 /* session.pb.swift in Sources */,
+				2E07BC53260A2D910092D4C2 /* StringExtensions.swift in Sources */,
+				2E07BC55260A2D910092D4C2 /* Security.swift in Sources */,
+				2E07BC4F260A2D910092D4C2 /* ArrayExtensions.swift in Sources */,
+				2E07BC2D260A2D840092D4C2 /* wifi_scan.pb.swift in Sources */,
+				2E07BC2F260A2D840092D4C2 /* device_info.proto in Sources */,
+				2E07BC31260A2D840092D4C2 /* wifi_config.pb.swift in Sources */,
+				2E07BC58260A2D910092D4C2 /* Session.swift in Sources */,
+				2E07BC54260A2D910092D4C2 /* Provision.swift in Sources */,
+				2E07BC34260A2D840092D4C2 /* constants.pb.swift in Sources */,
+				2E07BC57260A2D910092D4C2 /* Security1.swift in Sources */,
+				2E07BC5C260A2D910092D4C2 /* HexUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -366,15 +431,14 @@
 		};
 		58B511F01A9E6C8500147676 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BFD8908614B11447D97A38F0 /* Pods-Espressif.debug.xcconfig */;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../../../React/**",
 					"$(SRCROOT)/../../react-native/React/**",
 				);
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Espressif;
@@ -387,15 +451,14 @@
 		};
 		58B511F11A9E6C8500147676 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ADD427C602E826298CF75F82 /* Pods-Espressif.release.xcconfig */;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../../../React/**",
 					"$(SRCROOT)/../../react-native/React/**",
 				);
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Espressif;

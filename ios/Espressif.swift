@@ -150,7 +150,7 @@ class Espressif: RCTEventEmitter {
 	}
 	
 	override func supportedEvents() -> [String]! {
-		return ["devices-state", "log", "device-status", "network-state", "bluetooth-status"]
+		return ["devices-state", "log", "device-status", "network-state", "bluetooth-status", "devices-list"]
 	}
 	
 	@objc func setConfig(_ config: NSDictionary, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
