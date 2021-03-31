@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import type { EspressifDevice } from 'react-native-espressif';
+import type { ESPNetworkStatus, EspressifDevice } from 'react-native-espressif';
 import { ScrollView } from 'react-native-gesture-handler';
 import { LoggerContext } from '../Logger';
 import Item from './item';
@@ -18,17 +18,28 @@ export default function Devices({
   const logger = useContext(LoggerContext);
 
   const getDeviceInfo = async (device: EspressifDevice) => {
-    logger.addText('GET DEVICE INFO');
+    logger?.addText('GET DEVICE INFO');
 
     const data = await device.getDeviceInfo();
-    logger.addText(`Get device info ${JSON.stringify(data, null, 2)}`);
+    logger?.addText(`Get device info ${JSON.stringify(data, null, 2)}`);
   };
 
   const scanWifi = async (device: EspressifDevice) => {
-    logger.addText('Scan wifi');
+    logger?.addText('Scan wifi');
     const wifis = await device.scanWifi();
 
-    logger.addText(`Scan wifi finished ${JSON.stringify(wifis, null, 2)}`);
+    logger?.addText(`Scan wifi finished ${JSON.stringify(wifis, null, 2)}`);
+  };
+
+  const startNetworkStatus = async (device: EspressifDevice) => {
+    device.onNetworkStatusChanged = (
+      status: ESPNetworkStatus,
+      device: EspressifDevice
+    ) => {
+      logger?.addText(`DEVICE ${device.name} => ${status}`);
+    };
+
+    await device.networkTest();
   };
 
   return (
@@ -41,6 +52,7 @@ export default function Devices({
           scanWifi={() => scanWifi(device)}
           getDeviceInfo={() => getDeviceInfo(device)}
           setCredentials={() => setCredentials(device)}
+          startNetworkStatus={() => startNetworkStatus(device)}
         />
       ))}
     </ScrollView>

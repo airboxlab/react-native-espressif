@@ -28,6 +28,7 @@ interface Props {
   setCredentials: () => void;
   getDeviceInfo: () => void;
   scanWifi: () => void;
+  startNetworkStatus: () => void;
 }
 
 export default function Item({
@@ -36,6 +37,7 @@ export default function Item({
   setCredentials,
   getDeviceInfo,
   scanWifi,
+  startNetworkStatus,
 }: Props) {
   return (
     <View style={{ flex: 1, alignContent: 'stretch' }}>
@@ -75,7 +77,7 @@ export default function Item({
           </Text>
         </View>
       </TouchableOpacity>
-      {device.state === ESPDeviceState.SessionEstablished ? (
+      {device.state !== ESPDeviceState.Disconnected && device.state !== ESPDeviceState.NotConfigured ? (
         <View
           style={{
             flexDirection: 'row',
@@ -93,6 +95,9 @@ export default function Item({
           </TouchableOpacity>
           <TouchableOpacity style={{ flex: 1 }} onPress={scanWifi}>
             <Text style={styles.link}>Scan Wifi</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={{ flex: 1 }} onPress={startNetworkStatus}>
+            <Text style={styles.link}>Network test</Text>
           </TouchableOpacity>
         </View>
       ) : null}

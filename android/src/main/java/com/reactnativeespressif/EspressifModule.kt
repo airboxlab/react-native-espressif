@@ -126,6 +126,30 @@ class EspressifModule(reactContext: ReactApplicationContext) : ReactContextBaseJ
   }
 
   @ReactMethod
+  fun networkTestStatus(uuid: String, promise: Promise){
+    this.peripherals[uuid]?.let {
+      it.networkTest(object: ESPDevice.NetworkTestListener {
+        override fun Changed(network: EspressifPeripheralNetwork?) {
+          val arguments = Arguments.createMap()
+
+          arguments.merge(EspressifPeripheral(it, EspressifPeripheral.State.NETWORK_TEST, network!!).toMap())
+
+          sendEvent("device-status", toJSONObject(arguments).toString())
+        }
+
+        override fun Complete() {
+          promise.resolve(null)
+        }
+
+        override fun Error(exception: java.lang.Exception?) {
+          promise.reject(exception)
+        }
+
+      })
+    }
+  }
+
+  @ReactMethod
   fun getDeviceInfo(promise: Promise){
     this.selectedUuid.let {
 
@@ -181,6 +205,11 @@ class EspressifModule(reactContext: ReactApplicationContext) : ReactContextBaseJ
 
         override fun provisioningFailedFromDevice(failureReason: ESPConstants.ProvisionFailureReason?) {
           Log.e(ESPProvisionManager.TAG, "$failureReason");
+
+        }
+
+        override fun deviceProvisioningSuccess() {
+          Log.d(ESPProvisionManager.TAG, "deviceProvisioningSuccess");
           var arguments = Arguments.createMap()
           arguments.merge(EspressifPeripheral(
             it,
@@ -192,10 +221,7 @@ class EspressifModule(reactContext: ReactApplicationContext) : ReactContextBaseJ
             )
           ).toMap())
           sendEvent("device-status", arguments)
-        }
-
-        override fun deviceProvisioningSuccess() {
-          Log.d(ESPProvisionManager.TAG, "deviceProvisioningSuccess");
+          promise.resolve(null)
         }
 
         override fun onProvisioningFailed(e: java.lang.Exception?) {
@@ -251,6 +277,7 @@ class EspressifModule(reactContext: ReactApplicationContext) : ReactContextBaseJ
       return
     }
     try {
+      Log.d(ESPProvisionManager.TAG, "CONNECT TO $uuid")
 
       var connectionPromise = object : Promise {
         override fun resolve(value: Any?) {

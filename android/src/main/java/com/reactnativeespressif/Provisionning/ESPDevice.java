@@ -37,6 +37,7 @@ import androidx.annotation.RequiresPermission;
 
 import com.facebook.react.bridge.Promise;
 import com.reactnativeespressif.EspressifConfig;
+import com.reactnativeespressif.EspressifPeripheralNetwork;
 import com.reactnativeespressif.Provisionning.listeners.ProvisionListener;
 import com.reactnativeespressif.Provisionning.listeners.ResponseListener;
 import com.reactnativeespressif.Provisionning.listeners.WiFiScanListener;
@@ -64,7 +65,6 @@ import espressif.DeviceInfo;
 import espressif.WifiConfig;
 import espressif.WifiConstants;
 import espressif.WifiScan;
-import kotlin.Unit;
 
 import static java.lang.Thread.sleep;
 
@@ -188,6 +188,59 @@ public class ESPDevice {
       });
     }
 
+    public interface NetworkTestListener {
+      void Changed(EspressifPeripheralNetwork network);
+      void Complete();
+      void Error(Exception exception);
+    }
+
+    public void networkTest(NetworkTestListener listener) {      DeviceInfo.NetworkTestStatusRequest request = DeviceInfo.NetworkTestStatusRequest.newBuilder().setProtocolVersion(1).build();
+
+      session.sendDataToDevice("network-test", request.toByteArray(), new ResponseListener() {
+        @Override
+        public void onSuccess(byte[] returnData) {
+          try {
+            DeviceInfo.NetworkTestStatusResponse response = DeviceInfo.NetworkTestStatusResponse.parseFrom(returnData);
+
+            EspressifPeripheralNetwork network = new EspressifPeripheralNetwork(
+              EspressifPeripheralNetwork.State.NOT_STARTED,
+              EspressifPeripheralNetwork.State.NOT_STARTED,
+              EspressifPeripheralNetwork.State.NOT_STARTED
+            );
+
+            network.setTestIp(EspressifPeripheralNetwork.State.fromInt(response.getStatusTestIp()));
+            network.setTestCloud(EspressifPeripheralNetwork.State.fromInt(response.getStatusTestCloud()));
+            network.setTestInternet(EspressifPeripheralNetwork.State.fromInt(response.getStatusTestInternet()));
+            listener.Changed(network);
+
+            if (response.getStatusTestIp() == DeviceInfo.NetworkTestStatus.TEST_OK
+              && response.getStatusTestInternet() == DeviceInfo.NetworkTestStatus.TEST_OK
+              && response.getStatusTestCloud() == DeviceInfo.NetworkTestStatus.TEST_OK){
+              listener.Complete();
+            } else if (response.getStatusTestIp() == DeviceInfo.NetworkTestStatus.TEST_NOK
+              || response.getStatusTestInternet() == DeviceInfo.NetworkTestStatus.TEST_NOK
+              || response.getStatusTestCloud() == DeviceInfo.NetworkTestStatus.TEST_NOK){
+              listener.Error(null);
+            } else {
+              networkTest(listener);
+            }
+
+          } catch (Exception e){
+            listener.Error(e);
+          }
+
+
+
+
+        }
+
+        @Override
+        public void onFailure(Exception e) {
+
+        }
+      });
+    }
+
     /**
      * This method is used to connect ESPDevice using Wi-Fi transport.
      */
@@ -205,6 +258,8 @@ public class ESPDevice {
             EventBus.getDefault().post(new DeviceConnectionEvent(ESPConstants.EVENT_DEVICE_CONNECTION_FAILED));
         }
     }
+
+
 
     /**
      * This method is used to connect ESPDevice using Wi-Fi transport.
@@ -341,10 +396,11 @@ public class ESPDevice {
      * Note : It will disconnect only if device is connected thorough BLE transport.
      */
     public void disconnectDevice() {
-
+        Log.d(TAG, "DISCONNECT DEVICE");
         if (transport instanceof BLETransport) {
             ((BLETransport) transport).disconnect();
         }
+
         session = null;
         disableOnlyWifiNetwork();
     }
@@ -823,7 +879,6 @@ public class ESPDevice {
                     if (provisionListener != null) {
                         provisionListener.deviceProvisioningSuccess();
                     }
-                    session = null;
                     disableOnlyWifiNetwork();
 
                 } else if (wifiStationState == WifiConstants.WifiStationState.Disconnected) {
@@ -832,7 +887,6 @@ public class ESPDevice {
                     if (provisionListener != null) {
                         provisionListener.provisioningFailedFromDevice(ESPConstants.ProvisionFailureReason.DEVICE_DISCONNECTED);
                     }
-                    session = null;
                     disableOnlyWifiNetwork();
 
                 } else if (wifiStationState == WifiConstants.WifiStationState.Connecting) {
@@ -859,7 +913,6 @@ public class ESPDevice {
                     } else {
                         provisionListener.provisioningFailedFromDevice(ESPConstants.ProvisionFailureReason.UNKNOWN);
                     }
-                    session = null;
                     disableOnlyWifiNetwork();
                 }
             }

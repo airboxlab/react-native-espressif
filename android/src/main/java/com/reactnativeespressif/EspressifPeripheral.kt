@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothDevice
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.ReadableMap
 import com.reactnativeespressif.Provisionning.ESPDevice
+import espressif.DeviceInfo
 
 class EspressifPeripheralNetwork(testIp: State, testInternet: State, testCloud: State) {
   enum class State(val value: String){
@@ -11,6 +12,29 @@ class EspressifPeripheralNetwork(testIp: State, testInternet: State, testCloud: 
     IN_PROGRESS("IN_PROGRESS"),
     OK("OK"),
     NOK("NOK");
+
+    companion object {
+      public fun fromInt(value: Int): State {
+        when (value) {
+          0 -> return State.NOT_STARTED
+          1 -> return State.IN_PROGRESS
+          2 -> return State.OK
+          3 -> return State.NOK
+        }
+        return State.NOT_STARTED
+      }
+
+      @JvmStatic
+      fun fromInt(value: DeviceInfo.NetworkTestStatus): EspressifPeripheralNetwork.State {
+        when (value) {
+          DeviceInfo.NetworkTestStatus.TEST_NOT_STARTED -> return State.NOT_STARTED
+          DeviceInfo.NetworkTestStatus.TEST_IN_PROGRESS -> return State.IN_PROGRESS
+          DeviceInfo.NetworkTestStatus.TEST_OK -> return State.OK
+          DeviceInfo.NetworkTestStatus.TEST_NOK -> return State.NOK
+        }
+        return State.NOT_STARTED
+      }
+    }
   }
 
   var testIp: State = testIp
