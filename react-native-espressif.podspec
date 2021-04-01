@@ -10,10 +10,12 @@ Pod::Spec.new do |s|
   s.license      = package["license"]
   s.authors      = package["author"]
 
-  s.platforms    = { :ios => "10.0" }
+  s.platforms    = { :ios => "9.0" }
   s.source       = { :git => "https://test.com.git", :tag => "#{s.version}" }
 
   s.source_files = "ios/**/*.{h,m,mm,swift}"
 
   s.dependency "React-Core"
+  s.dependency 'SwiftProtobuf', '~> 1.6.0'
+  s.dependency 'Curve25519', '~> 1.1.0'
 end
