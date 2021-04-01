@@ -36,13 +36,13 @@
     "ios",
     "android"
   ],
-  "repository": "https://test.com",
-  "author": "Smol <julien.smolareck@bigint.fr> (https://test.com)",
+  "repository": "https://github.com/airboxlab/react-native-espressif",
+  "author": "Smol <julien.smolareck@bigint.fr> (https://github.com/airboxlab/react-native-espressif)",
   "license": "MIT",
   "bugs": {
-    "url": "https://test.com/issues"
+    "url": "https://github.com/airboxlab/react-native-espressif/issues"
   },
-  "homepage": "https://test.com#readme",
+  "homepage": "https://github.com/airboxlab/react-native-espressif#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
