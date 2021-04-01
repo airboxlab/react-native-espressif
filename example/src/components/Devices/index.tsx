@@ -42,6 +42,11 @@ export default function Devices({
     await device.networkTest();
   };
 
+  const disconnect = async (device: EspressifDevice) => {
+    await device.disconnect();
+    logger?.addText(`DISCONNECTED ${device.uuid}`);
+  };
+
   return (
     <ScrollView style={{ flex: 1, marginTop: 20 }}>
       {devices.map((device) => (
@@ -53,6 +58,7 @@ export default function Devices({
           getDeviceInfo={() => getDeviceInfo(device)}
           setCredentials={() => setCredentials(device)}
           startNetworkStatus={() => startNetworkStatus(device)}
+          disconnect={() => disconnect(device)}
         />
       ))}
     </ScrollView>

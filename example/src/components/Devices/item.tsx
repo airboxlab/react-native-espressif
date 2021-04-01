@@ -29,6 +29,7 @@ interface Props {
   getDeviceInfo: () => void;
   scanWifi: () => void;
   startNetworkStatus: () => void;
+  disconnect: () => void;
 }
 
 export default function Item({
@@ -38,6 +39,7 @@ export default function Item({
   getDeviceInfo,
   scanWifi,
   startNetworkStatus,
+  disconnect,
 }: Props) {
   return (
     <View style={{ flex: 1, alignContent: 'stretch' }}>
@@ -77,7 +79,8 @@ export default function Item({
           </Text>
         </View>
       </TouchableOpacity>
-      {device.state !== ESPDeviceState.Disconnected && device.state !== ESPDeviceState.NotConfigured ? (
+      {device.state !== ESPDeviceState.Disconnected &&
+      device.state !== ESPDeviceState.NotConfigured ? (
         <View
           style={{
             flexDirection: 'row',
@@ -98,6 +101,9 @@ export default function Item({
           </TouchableOpacity>
           <TouchableOpacity style={{ flex: 1 }} onPress={startNetworkStatus}>
             <Text style={styles.link}>Network test</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={{ flex: 1 }} onPress={disconnect}>
+            <Text style={styles.link}>Disconnect</Text>
           </TouchableOpacity>
         </View>
       ) : null}

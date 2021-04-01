@@ -83,6 +83,23 @@ class EspressifModule(reactContext: ReactApplicationContext) : ReactContextBaseJ
   }
 
   @ReactMethod
+  fun disconnect(uuid: String, promise: Promise){
+    this.peripherals[uuid]?.let {
+      it.disconnectDevice()
+
+      val arguments = Arguments.createMap()
+      arguments.merge(EspressifPeripheral(
+        it,
+        EspressifPeripheral.State.DISCONNECTED,
+        EspressifPeripheralNetwork(EspressifPeripheralNetwork.State.NOT_STARTED, EspressifPeripheralNetwork.State.NOT_STARTED, EspressifPeripheralNetwork.State.NOT_STARTED)
+      ).toMap())
+
+      this.sendEvent("device-status", arguments)
+      promise.resolve(null)
+    }
+  }
+
+  @ReactMethod
   fun scanDevices() {
     this.peripherals.clear()
 
