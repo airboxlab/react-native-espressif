@@ -68,8 +68,8 @@
     "typescript": "^4.1.3"
   },
   "peerDependencies": {
-    "react": "*",
-    "react-native": "*"
+    "react": ">= 16.0.0",
+    "react-native": ">= 0.60.0"
   },
   "jest": {
     "preset": "react-native",
