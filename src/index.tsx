@@ -63,7 +63,7 @@ export type EspressifDevice = {
   getDeviceInfo(): Promise<EspressifDeviceInfo>;
 };
 
-type EspressifType = {
+export type EspressifType = {
   bluetoothStatus: ESPBluetoothState;
 
   /**
@@ -107,11 +107,11 @@ type EspressifType = {
   getDeviceInfo(): Promise<string>;
 };
 
-interface DevicesListCallback {
+export interface DevicesListCallback {
   (state: ESPEventState, devices: EspressifDevice[]): void;
 }
 
-interface BluetoothStatusCallback {
+export interface BluetoothStatusCallback {
   (status: ESPBluetoothState): void;
 }
 
@@ -157,30 +157,20 @@ export enum ESPBluetoothState {
 }
 
 const setCallback = (device: EspressifDevice): EspressifDevice => {
-  device.startSession = async () => {
-    return await Espressif.startSession(device.uuid);
-  };
-
-  device.connect = async () => {
-    return await Espressif.connectTo(device.uuid);
-  };
-
-  device.setCredentials = async (ssid, passphrase) => {
-    return await Espressif.setCredentials(ssid, passphrase, device.uuid);
-  };
+  device.startSession = async () => await Espressif.startSession(device.uuid);
+  device.connect = async () => await Espressif.connectTo(device.uuid);
+  device.setCredentials = async (ssid, passphrase) =>
+    await Espressif.setCredentials(ssid, passphrase, device.uuid);
 
   device.scanWifi = async () => {
     const wifisJSON = await Espressif.scanWifi(device.uuid);
     return JSON.parse(wifisJSON);
   };
 
-  device.networkTest = async () => {
-    return await Espressif.networkTestStatus(device.uuid);
-  };
+  device.networkTest = async () =>
+    await Espressif.networkTestStatus(device.uuid);
 
-  device.disconnect = async () => {
-    return await Espressif.disconnect(device.uuid);
-  };
+  device.disconnect = async () => await Espressif.disconnect(device.uuid);
 
   device.getDeviceInfo = async () => {
     const infoJson = await Espressif.getDeviceInfo();
