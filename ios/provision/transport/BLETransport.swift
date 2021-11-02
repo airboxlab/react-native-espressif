@@ -325,7 +325,7 @@ extension BLETransport: CBPeripheralDelegate {
 				break
 			}
 			
-			self.configUUIDMap[description as String] = descriptor.characteristic.uuid.uuidString
+			self.configUUIDMap[description as String] = descriptor.characteristic?.uuid.uuidString
 		default:
 			break
 		}
